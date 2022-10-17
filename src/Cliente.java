@@ -23,6 +23,4 @@ public abstract class Cliente {
 	public void setEndereço(Endereço endereço) {
 		Endereço = endereço;
 	}
-	
-	
 }

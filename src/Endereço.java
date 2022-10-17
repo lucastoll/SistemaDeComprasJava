@@ -6,8 +6,17 @@ public class Endereço {
 	private String Cidade;
 	private String Estado;
 	
+	public Endereço(String rua, int numero, String bairro, String cep, String cidade, String estado) {
+		this.setRua(rua);
+		this.setNumero(numero);
+		this.setBairro(bairro);
+		this.setCEP(cep);
+		this.setCidade(cidade);
+		this.setEstado(estado);
+	}
+	
 	public String paraString() {
-		String infos = "Endereço: ";
+		String infos = "";
 		infos += "\nRua: " + this.getRua();
 		infos += "\nNumero: " + this.getNumero();
 		infos += "\nBairro: " + this.getBairro();

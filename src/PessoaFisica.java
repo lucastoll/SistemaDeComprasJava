@@ -9,9 +9,10 @@ public class PessoaFisica extends Cliente{
 		this.setCPF(cpf);
 		this.setMaximoDeParcelas(maximoDeParcelas);
 	}
-	
+
+	@Override
 	public String paraString() {
-		String infos = "";
+		String infos = "\n\n";
 		infos += this.getEndereço().paraString();
 		infos += "\nData de cadastro: " + this.getDataCadastro();
 		infos += "\nCPF: " + this.getCPF();

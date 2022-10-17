@@ -12,8 +12,9 @@ public class PessoaJuridica extends Cliente{
 		this.setPrazoMaximoPagamentoEmDias(prazoMaximoPagamentoEmDias);
 	}
 	
+	@Override
 	public String paraString() {
-		String infos = "";
+		String infos = "\n\n";
 		infos += this.getEndereço().paraString();
 		infos += "\nData de cadastro: " + this.getDataCadastro();
 		infos += "\nCNPJ: " + this.getCNPJ();

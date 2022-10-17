@@ -1,21 +1,26 @@
 import javax.swing.JOptionPane;
 
-import java.io.BufferedWriter;
+
 import java.io.File;  // Import the File class
 import java.io.FileWriter;
 import java.io.IOException;  // Import the IOException class to handle errors
+import java.util.ArrayList;
 
 public class Menu {
 	public static void main(String[] args) throws IOException {
 		int auxMenu = 0;
-		FileWriter fileWriter;
-		BufferedWriter bufferedWriter;
 
+		ArrayList<PessoaFisica> vecPessoaFisica = new ArrayList<PessoaFisica>();
+		ArrayList<PessoaJuridica> vecPessoaJuridica = new ArrayList<PessoaJuridica>();
+		GerenciaCliente GerenciadorClientes = new GerenciaCliente(vecPessoaFisica, vecPessoaJuridica);
+		
 		do{
+			GerenciadorClientes.leClientes();
+			
 			auxMenu = Integer.parseInt(JOptionPane.showInputDialog(null,
                     "Digite uma opção: \n"
                     + "1 - Cadastro de clientes\n"
-                    + "2 - Deletar Cliente pelo CPF\n"
+                    + "2 - Deletar cliente pelo CPF\n"
                     + "3 - Deletar cliente pelo nome\n"
                     + "4 - Cadastro de produtos\n"
                     + "5 - Efetuação de uma compra\n"
@@ -27,7 +32,14 @@ public class Menu {
 			
 			switch(auxMenu){
 			case 1:
-				cadastraCliente();
+				ArrayList<String> ArrayInfosCliente = new ArrayList<String>(GerenciadorClientes.obtemInformaçõesCliente());				
+				GerenciadorClientes.cadastraCliente(ArrayInfosCliente);
+				break;
+			case 2:
+				GerenciadorClientes.excluiClientePorCPF();
+				break;
+			case 7:
+				subMenuRelatorios(GerenciadorClientes.getVecPessoaFisica(), GerenciadorClientes.getVecPessoaJuridica());
 				break;
 			case 0: 
 				JOptionPane.showMessageDialog(null, "...", "Encerrando sistema!", JOptionPane.INFORMATION_MESSAGE);
@@ -37,118 +49,47 @@ public class Menu {
 				break;
 			}
 		}while(auxMenu != 0);
-		
 	}
 	
-	public static void cadastraCliente() throws IOException {
-		File arquivoClientes = new File("./baseDados/clientes.txt");
-
-		if(arquivoClientes.createNewFile()) {
-		  System.out.println("File created: " + arquivoClientes.getName());
-		} 
-		else {
-		  System.out.println("File already exists.");
-		}
-			
-		FileWriter fileWriter = new FileWriter(arquivoClientes, true);
-		
-		
-		String rua = JOptionPane.showInputDialog(null,
-                "Rua",
-                "Cadastro de clientes - Endereço",
-                JOptionPane.INFORMATION_MESSAGE);
-
-		int numero = Integer.parseInt(JOptionPane.showInputDialog(null,
-				"Numero: ",
-                "Cadastro de clientes - Endereço",
-                JOptionPane.INFORMATION_MESSAGE));
-		
-		String bairro = JOptionPane.showInputDialog(null,
-                "Bairro: ",
-                "Cadastro de clientes - Endereço",
-                JOptionPane.INFORMATION_MESSAGE);
-		
-		String cep = JOptionPane.showInputDialog(null,
-				"CEP: ",
-                "Cadastro de clientes - Endereço",
-                JOptionPane.INFORMATION_MESSAGE);
-		
-		String cidade = JOptionPane.showInputDialog(null,
-				"Cidade: ",
-                "Cadastro de clientes - Endereço",
-                JOptionPane.INFORMATION_MESSAGE);
-		
-		String estado = JOptionPane.showInputDialog(null,
-				"Estado: ",
-                "Cadastro de clientes - Endereço",
-                JOptionPane.INFORMATION_MESSAGE);
-	
-		int escolhaTipoDeCliente;
-		
+	public static void subMenuRelatorios(ArrayList<PessoaFisica> vecPessoaFisica, ArrayList<PessoaJuridica> vecPessoaJuridica) {
+		int auxSubmenuRelatorios = 0;
 		do {
-			escolhaTipoDeCliente = Integer.parseInt(JOptionPane.showInputDialog(null,
-					"1 - Pessoa física\n"
-					+ "2 - Pessoa juridica",
-	                "Cadastro de clientes - tipo do cliente",
-	                JOptionPane.INFORMATION_MESSAGE));
-			
-			if(escolhaTipoDeCliente == 1) {
-				String cpf = JOptionPane.showInputDialog(null,
-						"CPF: ",
-		                "Cadastro de clientes - Pessoa física",
-		                JOptionPane.INFORMATION_MESSAGE);
+			auxSubmenuRelatorios = Integer.parseInt(JOptionPane.showInputDialog(null,
+                    "Digite uma opção: \n"
+                    + "1 - Relação de todos os Clientes que possuem o nome iniciado por uma determinada\r\n"
+                    + "sequência de caracteres\n"
+                    + "2 - Relação de todos os Produtos\n"
+                    + "3 - Busca de um produto pelo nome\n"
+                    + "4 - Relação de produtos que são perecíveis e que estão com a data de validade vencida\n"
+                    + "5 - Relação de todas as compras\n"
+                    + "6 - Busca de uma compra pelo número\n"
+                    + "7 - Relação de todas as compras que não foram pagas ainda\n"
+                    + "8 - Relação das 10 últimas compras pagas\n"
+                    + "9 - Apresentação das informações da compra mais cara\n"
+                    + "10 - Apresentação das informações da compra mais barata\n"
+                    + "11 - Relação do valor total de compras feitas em cada mês nos últimos 12 meses\n"
+                    + "0 - Voltar ao menu principal",
+                    "Menu relatórios",
+                    JOptionPane.QUESTION_MESSAGE));
+			switch(auxSubmenuRelatorios) {
+			case 1: 
+				String infos = "Pessoa física";
+				for(PessoaFisica pessoaFisica: vecPessoaFisica) {
+					infos += pessoaFisica.paraString();
+				}
+				infos += "\n\nPessoa Juridíca";
+				for(PessoaJuridica pessoaJuridica: vecPessoaJuridica) {
+					infos += pessoaJuridica.paraString();
+				}
 				
-				int numeroMaximoDeParcelas = Integer.parseInt(JOptionPane.showInputDialog(null,
-						"Número máximo de parcelas na compra: ",
-		                "Cadastro de clientes - Pessoa física",
-		                JOptionPane.INFORMATION_MESSAGE));
-				
-				fileWriter.write("Separador\n\n" +
-						"fisica\n" 
-						+ rua + "\n"
-						+ numero + "\n" 
-						+ bairro + "\n" 
-						+ cep + "\n" 
-						+ cidade + "\n" 
-						+ estado + "\n"
-						+ cpf + "\n"
-						+ numeroMaximoDeParcelas + "\n\n");
-			}
-			else if(escolhaTipoDeCliente == 2) {
-				String cnpj = JOptionPane.showInputDialog(null,
-						"CNPJ: ",
-		                "Cadastro de clientes - Pessoa jurídica",
-		                JOptionPane.INFORMATION_MESSAGE);
-				
-				String razaoSocial = JOptionPane.showInputDialog(null,
-						"Razão Social: ",
-		                "Cadastro de clientes - Pessoa jurídica",
-		                JOptionPane.INFORMATION_MESSAGE);
-				
-				String prazoMaximo = JOptionPane.showInputDialog(null,
-						"Prazo máximo em dias para o pagamento da compra: ",
-		                "Cadastro de clientes - Pessoa jurídica",
-		                JOptionPane.INFORMATION_MESSAGE);
-				
-				fileWriter.write("Separador\n\n" +
-						"juridica\n" 
-						+ rua + "\n"
-						+ numero + "\n" 
-						+ bairro + "\n" 
-						+ cep + "\n" 
-						+ cidade + "\n" 
-						+ estado + "\n"
-						+ cnpj + "\n"
-						+ razaoSocial + "\n"
-						+ prazoMaximo + "\n\n");
-			}
-			else {
+				JOptionPane.showMessageDialog(null, infos, "Relação de todos os clientes iniciados por uma determinada sequencia de caracteres", JOptionPane.INFORMATION_MESSAGE);
+				break;
+			case 0:
+				break;
+			default: 
 				JOptionPane.showMessageDialog(null, "Opção invalida!, verifique a digitação e tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
+				break;
 			}
-			System.out.println(escolhaTipoDeCliente);
-			System.out.println(escolhaTipoDeCliente > 0 || escolhaTipoDeCliente < 3);
-		}while(escolhaTipoDeCliente < 1 || escolhaTipoDeCliente > 2);
-		
-		fileWriter.close();
+		}while(auxSubmenuRelatorios != 0);
 	}
 }
