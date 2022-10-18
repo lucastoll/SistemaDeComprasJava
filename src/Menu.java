@@ -32,11 +32,26 @@ public class Menu {
 			
 			switch(auxMenu){
 			case 1:
-				ArrayList<String> ArrayInfosCliente = new ArrayList<String>(GerenciadorClientes.obtemInformaçõesCliente());				
+				ArrayList<String> ArrayInfosCliente = new ArrayList<String>(obtemInformaçõesCliente());				
 				GerenciadorClientes.cadastraCliente(ArrayInfosCliente);
 				break;
 			case 2:
-				GerenciadorClientes.excluiClientePorCPF();
+				int escolha;
+				//Pergunta para o usuário se quer excluir por CPF ou CNPJ (lógicas diferentes);
+				do{			
+				escolha = Integer.parseInt(JOptionPane.showInputDialog(null, "Como desejar deletar um cliente?\n1 - CPF (Pessoa física)\n2 - CNPJ (Pessoa jurídica)"
+							, "Deletar cliente por CPF/CNPJ",
+							JOptionPane.QUESTION_MESSAGE));
+				}while(escolha < 1 || escolha > 2);
+				if(escolha == 1) {
+					GerenciadorClientes.excluiClientePorCPF();
+				} 
+				else{	
+					GerenciadorClientes.excluiClientePorCNPJ();
+				}
+				break;
+			case 3:
+				GerenciadorClientes.excluirClientePorNome();
 				break;
 			case 7:
 				subMenuRelatorios(GerenciadorClientes.getVecPessoaFisica(), GerenciadorClientes.getVecPessoaJuridica());
@@ -91,5 +106,102 @@ public class Menu {
 				break;
 			}
 		}while(auxSubmenuRelatorios != 0);
+	}
+	
+	public static ArrayList<String> obtemInformaçõesCliente() {
+		ArrayList<String> ArrayInfosCliente = new ArrayList<String>();
+		
+		String nome = JOptionPane.showInputDialog(null,
+                "Nome",
+                "Cadastro de clientes",
+                JOptionPane.INFORMATION_MESSAGE);
+		ArrayInfosCliente.add(nome);
+		
+		String rua = JOptionPane.showInputDialog(null,
+                "Rua",
+                "Cadastro de clientes - Endereço",
+                JOptionPane.INFORMATION_MESSAGE);
+		ArrayInfosCliente.add(rua);
+
+		String numero = JOptionPane.showInputDialog(null,
+				"Numero: ",
+                "Cadastro de clientes - Endereço",
+                JOptionPane.INFORMATION_MESSAGE);
+		ArrayInfosCliente.add(numero);
+
+		String bairro = JOptionPane.showInputDialog(null,
+                "Bairro: ",
+                "Cadastro de clientes - Endereço",
+                JOptionPane.INFORMATION_MESSAGE);
+		ArrayInfosCliente.add(bairro);
+
+		String cep = JOptionPane.showInputDialog(null,
+				"CEP: ",
+                "Cadastro de clientes - Endereço",
+                JOptionPane.INFORMATION_MESSAGE);
+		ArrayInfosCliente.add(cep);
+		
+		String cidade = JOptionPane.showInputDialog(null,
+				"Cidade: ",
+                "Cadastro de clientes - Endereço",
+                JOptionPane.INFORMATION_MESSAGE);
+		ArrayInfosCliente.add(cidade);
+		
+		String estado = JOptionPane.showInputDialog(null,
+				"Estado: ",
+                "Cadastro de clientes - Endereço",
+                JOptionPane.INFORMATION_MESSAGE);
+		ArrayInfosCliente.add(estado);
+
+		int escolhaTipoDeCliente;
+		do {
+			escolhaTipoDeCliente = Integer.parseInt(JOptionPane.showInputDialog(null,
+					"1 - Pessoa física\n"
+					+ "2 - Pessoa juridica",
+	                "Cadastro de clientes - tipo do cliente",
+	                JOptionPane.INFORMATION_MESSAGE));
+			
+			if(escolhaTipoDeCliente == 1) {
+				ArrayInfosCliente.add(0, "fisica");
+				
+				String cpf = JOptionPane.showInputDialog(null,
+						"CPF: ",
+		                "Cadastro de clientes - Pessoa física",
+		                JOptionPane.INFORMATION_MESSAGE);
+				ArrayInfosCliente.add(cpf);
+				
+				String numeroMaximoDeParcelas = JOptionPane.showInputDialog(null,
+						"Número máximo de parcelas na compra: ",
+		                "Cadastro de clientes - Pessoa física",
+		                JOptionPane.INFORMATION_MESSAGE);
+				ArrayInfosCliente.add(numeroMaximoDeParcelas);
+			}
+			else if(escolhaTipoDeCliente == 2) {
+				ArrayInfosCliente.add(0, "juridica");
+				
+				String cnpj = JOptionPane.showInputDialog(null,
+						"CNPJ: ",
+		                "Cadastro de clientes - Pessoa jurídica",
+		                JOptionPane.INFORMATION_MESSAGE);
+				ArrayInfosCliente.add(cnpj);
+				
+				String razaoSocial = JOptionPane.showInputDialog(null,
+						"Razão Social: ",
+		                "Cadastro de clientes - Pessoa jurídica",
+		                JOptionPane.INFORMATION_MESSAGE);
+				ArrayInfosCliente.add(razaoSocial);
+				
+				String prazoMaximo = JOptionPane.showInputDialog(null,
+						"Prazo máximo em dias para o pagamento da compra: ",
+		                "Cadastro de clientes - Pessoa jurídica",
+		                JOptionPane.INFORMATION_MESSAGE);
+				ArrayInfosCliente.add(prazoMaximo);
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Opção invalida!, verifique a digitação e tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
+			}
+		}while(escolhaTipoDeCliente < 1 || escolhaTipoDeCliente > 2);
+		
+		return ArrayInfosCliente;
 	}
 }

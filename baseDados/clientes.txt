@@ -1,29 +1,23 @@
 fisica
-Barcelona
+oi
+a
 23
-Hortencia
-18020-226
-Sorocaba
-São Paulo
-525.284.748-73
+aaaa
+aaa
+aaaa
+oi
+cpf
 12
 
-fisica
-1
-1
-1
-1
-1
-1
-1
-1
+juridica
+emerson junior
+stronger
+32
+a
+a
+a
+a
+cnpj
+oi
+30
 
-fisica
-fodase
-1
-1
-1
-1
-1
-2
-3

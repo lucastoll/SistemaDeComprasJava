@@ -5,8 +5,8 @@ public class PessoaJuridica extends Cliente{
 	private String RazaoSocial;
 	private int PrazoMaximoPagamentoEmDias;
 	
-	public PessoaJuridica(LocalDate dataCadastro, Endereço endereço, String cnpj, String razaoSocial, int prazoMaximoPagamentoEmDias){
-		super(dataCadastro, endereço);
+	public PessoaJuridica(LocalDate dataCadastro, Endereço endereço, String nome, String cnpj, String razaoSocial, int prazoMaximoPagamentoEmDias){
+		super(dataCadastro, endereço, nome);
 		this.setCNPJ(cnpj);
 		this.setRazaoSocial(razaoSocial);
 		this.setPrazoMaximoPagamentoEmDias(prazoMaximoPagamentoEmDias);
@@ -16,6 +16,7 @@ public class PessoaJuridica extends Cliente{
 	public String paraString() {
 		String infos = "\n\n";
 		infos += this.getEndereço().paraString();
+		infos += "\nNome: " + this.getNome();
 		infos += "\nData de cadastro: " + this.getDataCadastro();
 		infos += "\nCNPJ: " + this.getCNPJ();
 		infos += "\nRazão Social: " + this.getRazaoSocial();

@@ -1,3 +1,4 @@
+import java.awt.HeadlessException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -48,7 +49,7 @@ public class GerenciaCliente {
 		FileReader fr = new FileReader(arquivoClientes);
 		BufferedReader br = new BufferedReader(fr);
 		
-		String rua = "", bairro = "", cep = "", cidade = "", estado = "";
+		String nome = "", rua = "", bairro = "", cep = "", cidade = "", estado = "";
 		int numero = 0;
 		
 		while(br.ready()) {
@@ -56,6 +57,7 @@ public class GerenciaCliente {
 			if(linha.equals("fisica")) {
 				String cpf = "";
 				int maximoDeParcelas = 0;
+				nome = br.readLine();
 				rua = br.readLine();
 				numero = Integer.parseInt(br.readLine());
 				bairro = br.readLine();
@@ -66,13 +68,14 @@ public class GerenciaCliente {
 				maximoDeParcelas = Integer.parseInt(br.readLine());
 				
 				Endereço endereço1 = new Endereço(rua, numero, bairro, cep, cidade, estado);
-				PessoaFisica pessoaFisica1 = new PessoaFisica(LocalDate.now(), endereço1, cpf, maximoDeParcelas);
+				PessoaFisica pessoaFisica1 = new PessoaFisica(LocalDate.now(), endereço1, nome, cpf, maximoDeParcelas);
 				getVecPessoaFisica().add(pessoaFisica1);
 			}
 			else if(linha.equals("juridica")) {
 				String cnpj = "", razaoSocial = "";
 				int prazoMaximoEmDias = 0;
 				
+				nome = br.readLine();
 				rua = br.readLine();
 				numero = Integer.parseInt(br.readLine());
 				bairro = br.readLine();
@@ -84,104 +87,13 @@ public class GerenciaCliente {
 				prazoMaximoEmDias = Integer.parseInt(br.readLine());
 				
 				Endereço endereço1 = new Endereço(rua, numero, bairro, cep, cidade, estado);
-				PessoaJuridica pessoaJuridica1 = new PessoaJuridica(LocalDate.now(), endereço1, cnpj, razaoSocial, prazoMaximoEmDias);
+				PessoaJuridica pessoaJuridica1 = new PessoaJuridica(LocalDate.now(), endereço1, nome, cnpj, razaoSocial, prazoMaximoEmDias);
 				getVecPessoaJuridica().add(pessoaJuridica1);
 			}
 		}
 		
 		br.close();
 		fr.close();
-	}
-	
-	public ArrayList<String> obtemInformaçõesCliente() {
-		ArrayList<String> ArrayInfosCliente = new ArrayList<String>();
-		
-		String rua = JOptionPane.showInputDialog(null,
-                "Rua",
-                "Cadastro de clientes - Endereço",
-                JOptionPane.INFORMATION_MESSAGE);
-		ArrayInfosCliente.add(rua);
-
-		String numero = JOptionPane.showInputDialog(null,
-				"Numero: ",
-                "Cadastro de clientes - Endereço",
-                JOptionPane.INFORMATION_MESSAGE);
-		ArrayInfosCliente.add(numero);
-
-		String bairro = JOptionPane.showInputDialog(null,
-                "Bairro: ",
-                "Cadastro de clientes - Endereço",
-                JOptionPane.INFORMATION_MESSAGE);
-		ArrayInfosCliente.add(bairro);
-
-		String cep = JOptionPane.showInputDialog(null,
-				"CEP: ",
-                "Cadastro de clientes - Endereço",
-                JOptionPane.INFORMATION_MESSAGE);
-		ArrayInfosCliente.add(cep);
-		
-		String cidade = JOptionPane.showInputDialog(null,
-				"Cidade: ",
-                "Cadastro de clientes - Endereço",
-                JOptionPane.INFORMATION_MESSAGE);
-		ArrayInfosCliente.add(cidade);
-		
-		String estado = JOptionPane.showInputDialog(null,
-				"Estado: ",
-                "Cadastro de clientes - Endereço",
-                JOptionPane.INFORMATION_MESSAGE);
-		ArrayInfosCliente.add(estado);
-
-		int escolhaTipoDeCliente;
-		do {
-			escolhaTipoDeCliente = Integer.parseInt(JOptionPane.showInputDialog(null,
-					"1 - Pessoa física\n"
-					+ "2 - Pessoa juridica",
-	                "Cadastro de clientes - tipo do cliente",
-	                JOptionPane.INFORMATION_MESSAGE));
-			
-			if(escolhaTipoDeCliente == 1) {
-				ArrayInfosCliente.add(0, "fisica");
-				
-				String cpf = JOptionPane.showInputDialog(null,
-						"CPF: ",
-		                "Cadastro de clientes - Pessoa física",
-		                JOptionPane.INFORMATION_MESSAGE);
-				ArrayInfosCliente.add(cpf);
-				
-				String numeroMaximoDeParcelas = JOptionPane.showInputDialog(null,
-						"Número máximo de parcelas na compra: ",
-		                "Cadastro de clientes - Pessoa física",
-		                JOptionPane.INFORMATION_MESSAGE);
-				ArrayInfosCliente.add(numeroMaximoDeParcelas);
-			}
-			else if(escolhaTipoDeCliente == 2) {
-				ArrayInfosCliente.add(0, "juridica");
-				
-				String cnpj = JOptionPane.showInputDialog(null,
-						"CNPJ: ",
-		                "Cadastro de clientes - Pessoa jurídica",
-		                JOptionPane.INFORMATION_MESSAGE);
-				ArrayInfosCliente.add(cnpj);
-				
-				String razaoSocial = JOptionPane.showInputDialog(null,
-						"Razão Social: ",
-		                "Cadastro de clientes - Pessoa jurídica",
-		                JOptionPane.INFORMATION_MESSAGE);
-				ArrayInfosCliente.add(razaoSocial);
-				
-				String prazoMaximo = JOptionPane.showInputDialog(null,
-						"Prazo máximo em dias para o pagamento da compra: ",
-		                "Cadastro de clientes - Pessoa jurídica",
-		                JOptionPane.INFORMATION_MESSAGE);
-				ArrayInfosCliente.add(prazoMaximo);
-			}
-			else {
-				JOptionPane.showMessageDialog(null, "Opção invalida!, verifique a digitação e tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
-			}
-		}while(escolhaTipoDeCliente < 1 || escolhaTipoDeCliente > 2);
-		
-		return ArrayInfosCliente;
 	}
 	
 	public void cadastraCliente(ArrayList<String> ArrayInfosCliente) throws IOException {
@@ -199,38 +111,175 @@ public class GerenciaCliente {
 		for(String info: ArrayInfosCliente) {
 			fileWriter.write(info + "\n");
 		}
-		
+		fileWriter.write("\n");
+
 		fileWriter.close();
 	}
 	
-	public void excluiClientePorCPF() throws IOException{
+	public void excluiClientePorCPF() throws IOException {
 		String cpfsCadastradosNoSistema = "";
 		boolean cpfEncontrado = false;
-		
+		//Pega todos os cpfs encontrados no sistema e exibe na tela para o usuário ver
 		for(PessoaFisica pessoaFisica: this.vecPessoaFisica) {
 			cpfsCadastradosNoSistema += pessoaFisica.getCPF() + "\n";
 		}
-		
-		String cpf = JOptionPane.showInputDialog(null, "CPFs cadastrados no sistema:\n"
-				+ cpfsCadastradosNoSistema, "Deletar cliente por CPF",
+		//Pergunta qual CPF o usuário quer excluir
+		String cpf = JOptionPane.showInputDialog(null, "CPFs cadastrados no sistema:\n" + cpfsCadastradosNoSistema,
+				"Deletar cliente por CPF/CNPJ",
 				JOptionPane.QUESTION_MESSAGE);
-		
-		int iterador = 0;
+		//Verifica se o CPF que o usuário digitou existe no sistema
 		for(PessoaFisica pessoaFisica: this.vecPessoaFisica) {
 			if(cpf.equals(pessoaFisica.getCPF())) {
-				cpfEncontrado = true;
-				
-				JOptionPane.showMessageDialog(null, "Cliente com o CPF " + cpf + " deletado com sucesso", "Operação concluída", JOptionPane.INFORMATION_MESSAGE);
+				cpfEncontrado = true;		
 				break;
+			}
+		}
+		//Verifica se o CPF foi encontrado, se sim ele é apagado, caso contrário, diz ao usuário que o cpf não foi encontrado
+		if(!cpfEncontrado){
+			JOptionPane.showMessageDialog(null, "CPF não encontrado no sistema, verifique a digitação e tente novamente", "Erro!", JOptionPane.ERROR_MESSAGE);
+		}
+		else{
+			int iterador = 0;
+			File arquivoOriginal = new File("./baseDados/clientes.txt");
+		    BufferedReader bufferedReader = new BufferedReader(new FileReader(arquivoOriginal));
+
+		    while(bufferedReader.ready()) {
+		    	iterador++;
+				if(cpf.equals(bufferedReader.readLine())) {	
+					bufferedReader.close();
+					for(int j = iterador + 2; j >= iterador - 8; j--) { // Verifica todas as linhas do arquivo procurando o CPF	
+						removeLinhaPorArquivo("./baseDados/clientes.txt", j); // Apaga as informações do cliente fisico partindo da ultima linha para a primeira
+					}
+					JOptionPane.showMessageDialog(null, "Cliente com CPF " + cpf + " deletado com sucesso", "Operação concluída", JOptionPane.INFORMATION_MESSAGE);
+					break;
+				}
+		    } // while
+		} // else
+	}
+	
+	public void excluiClientePorCNPJ() throws IOException{
+		String cnpjsCadastradosNoSistema = "";
+		boolean cnpjEncontrado = false;
+		//Pega todos os CNPJ encontrados no sistema e exibe na tela para o usuário ver
+		for(PessoaJuridica pessoaJuridica: this.vecPessoaJuridica) {
+			cnpjsCadastradosNoSistema += pessoaJuridica.getCNPJ() + "\n";
+		}
+		//Pergunta qual CNPJ o usuário quer excluir
+		String cnpj = JOptionPane.showInputDialog(null, "CNPJs cadastrados no sistema:\n" + cnpjsCadastradosNoSistema,
+				"Deletar cliente por CNPJ",
+				JOptionPane.QUESTION_MESSAGE);
+		//Verifica se o CNPJ que o usuário digitou existe no sistema
+		for(PessoaJuridica pessoaJuridica: this.vecPessoaJuridica) {
+			if(cnpj.equals(pessoaJuridica.getCNPJ())) {
+				cnpjEncontrado = true;		
+				break;
+			}
+		}
+		//Verifica se o CNPJ foi encontrado, se sim ele é apagado, caso contrário, diz ao usuário que o cpf não foi encontrado
+		if(!cnpjEncontrado){
+			JOptionPane.showMessageDialog(null, "CNPJ não encontrado no sistema, verifique a digitação e tente novamente", "Erro!", JOptionPane.ERROR_MESSAGE);
+		}
+		else{
+			int iterador = 0;
+			File arquivoOriginal = new File("./baseDados/clientes.txt");
+		    BufferedReader bufferedReader = new BufferedReader(new FileReader(arquivoOriginal));
+
+		    while(bufferedReader.ready()) {
+		    	iterador++;
+				if(cnpj.equals(bufferedReader.readLine())) { // Verifica todas as linhas do arquivo procurando o CNPJ	
+					bufferedReader.close();
+					for(int j = iterador + 3; j >= iterador - 8; j--) { // Apaga as informações do cliente juridico partindo da ultima linha para a primeira
+						removeLinhaPorArquivo("./baseDados/clientes.txt", j);
+					}
+					JOptionPane.showMessageDialog(null, "Cliente com CNPJ " + cnpj + " deletado com sucesso", "Operação concluída",
+							JOptionPane.INFORMATION_MESSAGE);
+					break;
+				}
+		    } // while
+		} // else
+	}
+	
+	public void excluirClientePorNome() throws IOException{
+		String nomesCadastradosNoSistema = "";
+
+		for(PessoaJuridica pessoaJuridica: this.vecPessoaJuridica) {
+			nomesCadastradosNoSistema += pessoaJuridica.getNome() + "\n";
+		}
+		for(PessoaFisica pessoaFisica: this.vecPessoaFisica) {
+			nomesCadastradosNoSistema += pessoaFisica.getNome() + "\n";
+		}
+		
+		String nome = JOptionPane.showInputDialog(null, "Nomes cadastrados no sistema:\n" + nomesCadastradosNoSistema,
+				"Deletar cliente por nome",
+				JOptionPane.QUESTION_MESSAGE);
+		
+		boolean nomeEncontrado = false;
+		
+		for(PessoaJuridica pessoaJuridica: this.vecPessoaJuridica) {
+			if(nome.equals(pessoaJuridica.getNome())) {
+				nomeEncontrado = true;		
+				break;
+			}
+		}
+		for(PessoaFisica pessoaFisica: this.vecPessoaFisica) {
+			if(nome.equals(pessoaFisica.getNome())) {
+				nomeEncontrado = true;		
+				break;
+			}
+		}
+		
+		if(!nomeEncontrado) {
+			JOptionPane.showMessageDialog(null, "Nome não encontrado no sistema, verifique a digitação e tente novamente", "Erro!",
+					JOptionPane.ERROR_MESSAGE);
+		}
+		else {
+			int iterador = 0;
+			File arquivoOriginal = new File("./baseDados/clientes.txt");
+		    BufferedReader bufferedReader = new BufferedReader(new FileReader(arquivoOriginal));
+
+		    while(bufferedReader.ready()) {
+		    	iterador++;
+		    	
+				if(nome.equals(bufferedReader.readLine())) { // Verifica todas as linhas do arquivo procurando o CNPJ	
+			    	bufferedReader.close();
+					if(retornaConteudoDaLinhaNoArquivo("./baseDados/clientes.txt", iterador - 1).equals("fisica")){
+						for(int j = iterador + 9; j >= iterador - 1; j--) { // Apaga as informações do cliente juridico partindo da ultima linha para a primeira
+							removeLinhaPorArquivo("./baseDados/clientes.txt", j);
+						}
+					}
+					else if(retornaConteudoDaLinhaNoArquivo("./baseDados/clientes.txt", iterador - 1).equals("juridica")) {
+						for(int j = iterador + 10; j >= iterador - 1; j--) { // Apaga as informações do cliente juridico partindo da ultima linha para a primeira
+							removeLinhaPorArquivo("./baseDados/clientes.txt", j);
+						}
+					}
+							
+					JOptionPane.showMessageDialog(null, "Cliente com nome " + nome + " deletado com sucesso", "Operação concluída",
+							JOptionPane.INFORMATION_MESSAGE);
+					break;
+				}
+		    	
+		    } // while
+		}
+		
+	}
+	
+	public String retornaConteudoDaLinhaNoArquivo(String caminhoArquivo, int linha) throws IOException{
+		File arquivo = new File(caminhoArquivo);
+		int iterador = 1;
+
+	    BufferedReader bufferedReader = new BufferedReader(new FileReader(arquivo));
+	    while(bufferedReader.ready()) {
+	    	String conteudoLinha = bufferedReader.readLine();
+			if(iterador == linha) {	
+				bufferedReader.close();
+				return conteudoLinha;
 			}
 			iterador++;
 		}
-		
-		removeLinhaPorArquivo("./baseDados/clientes.txt", 3);
-		
-		if(!cpfEncontrado) {
-			JOptionPane.showMessageDialog(null, "CPF não encontrado, verifique a digitação e tente novamente", "Erro!", JOptionPane.ERROR_MESSAGE);
-		}
+	    
+		bufferedReader.close();
+	    System.out.println("Linha não encontrada no arquivo, retornando vazio");
+	    return "";
 	}
 	
 	public void removeLinhaPorArquivo(String arquivo, int linhaParaApagar) throws IOException {
@@ -239,32 +288,35 @@ public class GerenciaCliente {
 		arquivoTemporario.createNewFile();
 		int iterador = 1;
 
-		//certo
 	    BufferedReader bufferedReader = new BufferedReader(new FileReader(arquivoOriginal));
 		FileWriter fileWriter = new FileWriter(arquivoTemporario, true);
 		
 
 		while(bufferedReader.ready()) {
-			
-			System.out.println("\n\nIteração " + iterador);
-			System.out.println("Iterador == linhaParaApagar?" + (iterador == linhaParaApagar));
 			if(iterador == linhaParaApagar) {	
-				System.out.println("Entrei no primeiro if");
 				bufferedReader.readLine();
 				iterador++;
 				continue;
 			}
 			else {
-				String fodase = bufferedReader.readLine();
-				fileWriter.write(fodase + "\n");	
-				System.out.println("Entrei no segundo if e escrevi" + fodase);
+				fileWriter.write(bufferedReader.readLine() + "\n");	
 			}
 			iterador++;
 		}
-		
 		fileWriter.close(); 
 		bufferedReader.close(); 
 		
-	}
+	  //Delete the original file
+      if (!arquivoOriginal.delete()) {
+        System.out.println("Could not delete file");
+        return;
+      }
 
+      //Rename the new file to the filename the original file had.
+      if (!arquivoTemporario.renameTo(arquivoOriginal))
+        System.out.println("Could not rename file");
+
+    }
 }
+
+ 
