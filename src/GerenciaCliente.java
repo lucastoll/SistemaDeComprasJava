@@ -14,7 +14,10 @@ public class GerenciaCliente {
 	private ArrayList<PessoaFisica> vecPessoaFisica;
 	private ArrayList<PessoaJuridica> vecPessoaJuridica;
 	
-	public GerenciaCliente(ArrayList<PessoaFisica> vecPessoaFisica, ArrayList<PessoaJuridica> vecPessoaJuridica) {
+	public GerenciaCliente() {
+		ArrayList<PessoaFisica> vecPessoaFisica = new ArrayList<PessoaFisica>();
+		ArrayList<PessoaJuridica> vecPessoaJuridica = new ArrayList<PessoaJuridica>();
+		
 		setVecPessoaFisica(vecPessoaFisica);
 		setVecPessoaJuridica(vecPessoaJuridica);
 	}
@@ -35,15 +38,16 @@ public class GerenciaCliente {
 	}	
 	
 	public void leClientes() throws IOException {
+		// Função que limpa os vetores e lê o arquivo novamente para preenche-los
 		this.vecPessoaFisica.clear();
-		this.vecPessoaJuridica.clear();;
+		this.vecPessoaJuridica.clear();
 		File arquivoClientes = new File("./baseDados/clientes.txt");
 		
 		if(arquivoClientes.createNewFile()) {
-		  System.out.println("File created: " + arquivoClientes.getName());
+		  System.out.println("Arquivo criado: " + arquivoClientes.getName());
 		} 
 		else {
-		  System.out.println("File already exists.");
+		  System.out.println("Arquivo já existe.");
 		}
 		
 		FileReader fr = new FileReader(arquivoClientes);
@@ -51,7 +55,7 @@ public class GerenciaCliente {
 		
 		String nome = "", rua = "", bairro = "", cep = "", cidade = "", estado = "";
 		int numero = 0;
-		
+		// verifica se as linhas equivalem a fisica ou juridica, caso verdadeiro cadastra as informações adequadamente para cada tipo
 		while(br.ready()) {
 			String linha = br.readLine();
 			if(linha.equals("fisica")) {
@@ -97,6 +101,7 @@ public class GerenciaCliente {
 	}
 	
 	public void cadastraCliente(ArrayList<String> ArrayInfosCliente) throws IOException {
+		// Função que recebe uma array de dados e cadastra no final do arquivo
 		File arquivoClientes = new File("./baseDados/clientes.txt");
 
 		if(arquivoClientes.createNewFile()) {
@@ -117,6 +122,9 @@ public class GerenciaCliente {
 	}
 	
 	public void excluiClientePorCPF() throws IOException {
+		GerenciaArquivo GerenciadorArquivo = new GerenciaArquivo();
+
+		
 		String cpfsCadastradosNoSistema = "";
 		boolean cpfEncontrado = false;
 		//Pega todos os cpfs encontrados no sistema e exibe na tela para o usuário ver
@@ -148,7 +156,7 @@ public class GerenciaCliente {
 				if(cpf.equals(bufferedReader.readLine())) {	
 					bufferedReader.close();
 					for(int j = iterador + 2; j >= iterador - 8; j--) { // Verifica todas as linhas do arquivo procurando o CPF	
-						removeLinhaPorArquivo("./baseDados/clientes.txt", j); // Apaga as informações do cliente fisico partindo da ultima linha para a primeira
+						GerenciadorArquivo.removeLinhaPorArquivo("./baseDados/clientes.txt", j); // Apaga as informações do cliente fisico partindo da ultima linha para a primeira
 					}
 					JOptionPane.showMessageDialog(null, "Cliente com CPF " + cpf + " deletado com sucesso", "Operação concluída", JOptionPane.INFORMATION_MESSAGE);
 					break;
@@ -158,6 +166,8 @@ public class GerenciaCliente {
 	}
 	
 	public void excluiClientePorCNPJ() throws IOException{
+		GerenciaArquivo GerenciadorArquivo = new GerenciaArquivo();
+		
 		String cnpjsCadastradosNoSistema = "";
 		boolean cnpjEncontrado = false;
 		//Pega todos os CNPJ encontrados no sistema e exibe na tela para o usuário ver
@@ -189,7 +199,7 @@ public class GerenciaCliente {
 				if(cnpj.equals(bufferedReader.readLine())) { // Verifica todas as linhas do arquivo procurando o CNPJ	
 					bufferedReader.close();
 					for(int j = iterador + 3; j >= iterador - 8; j--) { // Apaga as informações do cliente juridico partindo da ultima linha para a primeira
-						removeLinhaPorArquivo("./baseDados/clientes.txt", j);
+						GerenciadorArquivo.removeLinhaPorArquivo("./baseDados/clientes.txt", j);
 					}
 					JOptionPane.showMessageDialog(null, "Cliente com CNPJ " + cnpj + " deletado com sucesso", "Operação concluída",
 							JOptionPane.INFORMATION_MESSAGE);
@@ -200,21 +210,23 @@ public class GerenciaCliente {
 	}
 	
 	public void excluirClientePorNome() throws IOException{
-		String nomesCadastradosNoSistema = "";
+		GerenciaArquivo GerenciadorArquivo = new GerenciaArquivo();
 
+		
+		String nomesCadastradosNoSistema = "";
+		//Obtem todos os nomes cadastrados nos vetores
 		for(PessoaJuridica pessoaJuridica: this.vecPessoaJuridica) {
 			nomesCadastradosNoSistema += pessoaJuridica.getNome() + "\n";
 		}
 		for(PessoaFisica pessoaFisica: this.vecPessoaFisica) {
 			nomesCadastradosNoSistema += pessoaFisica.getNome() + "\n";
 		}
-		
+		//Mostra os nomes cadastrados no sistema e pergunta ao usuario qual ele quer excluir
 		String nome = JOptionPane.showInputDialog(null, "Nomes cadastrados no sistema:\n" + nomesCadastradosNoSistema,
 				"Deletar cliente por nome",
 				JOptionPane.QUESTION_MESSAGE);
-		
+		//Verifica se o nome digitado pelo usuario existe no sistema
 		boolean nomeEncontrado = false;
-		
 		for(PessoaJuridica pessoaJuridica: this.vecPessoaJuridica) {
 			if(nome.equals(pessoaJuridica.getNome())) {
 				nomeEncontrado = true;		
@@ -227,7 +239,7 @@ public class GerenciaCliente {
 				break;
 			}
 		}
-		
+		//Caso o nome não seja encontrado dizer ao usuario
 		if(!nomeEncontrado) {
 			JOptionPane.showMessageDialog(null, "Nome não encontrado no sistema, verifique a digitação e tente novamente", "Erro!",
 					JOptionPane.ERROR_MESSAGE);
@@ -239,84 +251,31 @@ public class GerenciaCliente {
 
 		    while(bufferedReader.ready()) {
 		    	iterador++;
-		    	
-				if(nome.equals(bufferedReader.readLine())) { // Verifica todas as linhas do arquivo procurando o CNPJ	
+		    	// Verifica todas as linhas do arquivo procurando o nome
+				if(nome.equals(bufferedReader.readLine())) { 	
 			    	bufferedReader.close();
-					if(retornaConteudoDaLinhaNoArquivo("./baseDados/clientes.txt", iterador - 1).equals("fisica")){
-						for(int j = iterador + 9; j >= iterador - 1; j--) { // Apaga as informações do cliente juridico partindo da ultima linha para a primeira
-							removeLinhaPorArquivo("./baseDados/clientes.txt", j);
+			    	// Quando achar o nome, verificar na linha anterior o tipo do cliente e apagar as informações de maneira adequada
+					if(GerenciadorArquivo.retornaConteudoDaLinhaNoArquivo("./baseDados/clientes.txt", iterador - 1).equals("fisica")){
+						for(int j = iterador + 9; j >= iterador - 1; j--) { 
+							GerenciadorArquivo.removeLinhaPorArquivo("./baseDados/clientes.txt", j);
 						}
 					}
-					else if(retornaConteudoDaLinhaNoArquivo("./baseDados/clientes.txt", iterador - 1).equals("juridica")) {
-						for(int j = iterador + 10; j >= iterador - 1; j--) { // Apaga as informações do cliente juridico partindo da ultima linha para a primeira
-							removeLinhaPorArquivo("./baseDados/clientes.txt", j);
+					else if(GerenciadorArquivo.retornaConteudoDaLinhaNoArquivo("./baseDados/clientes.txt", iterador - 1).equals("juridica")) {
+						for(int j = iterador + 10; j >= iterador - 1; j--) { 
+							GerenciadorArquivo.removeLinhaPorArquivo("./baseDados/clientes.txt", j);
 						}
 					}
-							
+						
 					JOptionPane.showMessageDialog(null, "Cliente com nome " + nome + " deletado com sucesso", "Operação concluída",
 							JOptionPane.INFORMATION_MESSAGE);
 					break;
 				}
 		    	
 		    } // while
-		}
-		
+		}		
 	}
 	
-	public String retornaConteudoDaLinhaNoArquivo(String caminhoArquivo, int linha) throws IOException{
-		File arquivo = new File(caminhoArquivo);
-		int iterador = 1;
-
-	    BufferedReader bufferedReader = new BufferedReader(new FileReader(arquivo));
-	    while(bufferedReader.ready()) {
-	    	String conteudoLinha = bufferedReader.readLine();
-			if(iterador == linha) {	
-				bufferedReader.close();
-				return conteudoLinha;
-			}
-			iterador++;
-		}
-	    
-		bufferedReader.close();
-	    System.out.println("Linha não encontrada no arquivo, retornando vazio");
-	    return "";
-	}
 	
-	public void removeLinhaPorArquivo(String arquivo, int linhaParaApagar) throws IOException {
-		File arquivoOriginal = new File(arquivo);
-		File arquivoTemporario = new File("./baseDados/clientesTemp.txt");
-		arquivoTemporario.createNewFile();
-		int iterador = 1;
-
-	    BufferedReader bufferedReader = new BufferedReader(new FileReader(arquivoOriginal));
-		FileWriter fileWriter = new FileWriter(arquivoTemporario, true);
-		
-
-		while(bufferedReader.ready()) {
-			if(iterador == linhaParaApagar) {	
-				bufferedReader.readLine();
-				iterador++;
-				continue;
-			}
-			else {
-				fileWriter.write(bufferedReader.readLine() + "\n");	
-			}
-			iterador++;
-		}
-		fileWriter.close(); 
-		bufferedReader.close(); 
-		
-	  //Delete the original file
-      if (!arquivoOriginal.delete()) {
-        System.out.println("Could not delete file");
-        return;
-      }
-
-      //Rename the new file to the filename the original file had.
-      if (!arquivoTemporario.renameTo(arquivoOriginal))
-        System.out.println("Could not rename file");
-
-    }
 }
 
  

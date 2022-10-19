@@ -1,14 +1,3 @@
-fisica
-oi
-a
-23
-aaaa
-aaa
-aaaa
-oi
-cpf
-12
-
 juridica
 emerson junior
 stronger
@@ -20,4 +9,15 @@ a
 cnpj
 oi
 30
+
+fisica
+Lucas
+rua
+4
+bairro
+cep
+a
+a
+cpfzao
+44
 
