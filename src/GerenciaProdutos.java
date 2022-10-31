@@ -19,6 +19,7 @@ public class GerenciaProdutos {
 		setVecProdutos(vecProdutos);
 		ArrayList<Pereciveis>vecPereciveis = new ArrayList<Pereciveis>();
 		setVecPereciveis(vecPereciveis);
+		//rosario
 	}
 	public ArrayList<Produtos> getVecProdutos() {
 		return vecProdutos;
