@@ -1,0 +1,22 @@
+Produto
+100
+Rafael Rosario
+44455
+100000.0
+Produto
+455
+Jabirosca
+yiyiyiyi
+4000.0
+Pereciveis
+4
+r
+r
+5.0
+2002-06-03
+Pereciveis
+2
+e
+e
+4.0
+2002-03-01

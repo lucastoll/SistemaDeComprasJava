@@ -1,18 +1,18 @@
 import javax.swing.JOptionPane;
-
-
 import java.io.File;  // Import the File class
 import java.io.FileWriter;
 import java.io.IOException;  // Import the IOException class to handle errors
 import java.util.ArrayList;
+import java.time.LocalDate;
 
 public class Menu {
 	public static void main(String[] args) throws IOException {
 		int auxMenu = 0;
 		GerenciaCliente GerenciadorClientes = new GerenciaCliente();
-		
+		GerenciaProdutos GerenciadorProdutos = new GerenciaProdutos();
 		do{
-			GerenciadorClientes.leClientes(); //Le as informações do arquivo e atualiza os vetores cleintes apos qualquer operação do menu
+			GerenciadorClientes.leClientes();//Le as informações do arquivo e atualiza os vetores cleintes apos qualquer operação do menu
+			GerenciadorProdutos.leProdutos();
 			auxMenu = Integer.parseInt(JOptionPane.showInputDialog(null,
                     "Digite uma opção: \n"
                     + "1 - Cadastro de clientes\n"
@@ -47,6 +47,12 @@ public class Menu {
 				break;
 			case 3:
 				GerenciadorClientes.excluirClientePorNome();
+				break;
+			case 4:
+				GerenciadorProdutos.cadastraProdutos();
+				break;
+			case 5: 
+				GerenciadorProdutos.MostraProdutos();
 				break;
 			case 7:
 				subMenuRelatorios(GerenciadorClientes.getVecPessoaFisica(), GerenciadorClientes.getVecPessoaJuridica());
@@ -133,6 +139,8 @@ public class Menu {
 		boolean permissaoParaContinuar = true;
 		do{
 			permissaoParaContinuar = true;
+			
+			
 			atributo = JOptionPane.showInputDialog(null,
 					mensagem,
 	                "Cadastro de clientes",
@@ -244,4 +252,7 @@ public class Menu {
 		
 		return ArrayInfosCliente;
 	}
+	/*public static ArrayList<String> obtemInformaçõesProdutos(GerenciaProdutos GerenciadorProdutos){
+		
+	}*/
 }
