@@ -91,6 +91,9 @@ public class Menu {
 			case 1: 
 				mostraClientesQueComecamPorUmaSequenciaDeCaracteres(vecPessoaFisica, vecPessoaJuridica);
 				break;
+			case 2:
+				relacaoProdutos(vecProdutos, vecPereciveis);
+				break;
 			case 3:
 				buscaProdutoPeloNome(vecProdutos, vecPereciveis);
 				break;
@@ -109,9 +112,7 @@ public class Menu {
 		}while(auxSubmenuRelatorios != 0);
 	}
 	
-	
 
-	
 	
 	
 	
@@ -125,7 +126,6 @@ public class Menu {
 		ArrayList<PessoaJuridica> ArrayPessoasJuridicas = new ArrayList();
 		// Procura ocorrencias de pessoas fisicas com nomes começando a partir da sequencia definida pelo usuario e coloca em uma array;
 		for(PessoaFisica pessoaFisica: arrayOriginalPessoaFisica) {
-			System.out.println(pessoaFisica.getNome().indexOf(sequenciaCaracteres) + pessoaFisica.getNome());
 			if(pessoaFisica.getNome().indexOf(sequenciaCaracteres) == 0){
 				ArrayPessoasFisicas.add(pessoaFisica);
 			}
@@ -149,11 +149,21 @@ public class Menu {
 		
 		JOptionPane.showMessageDialog(null, infos, "Relação de todos os clientes iniciados pela sequencia de caracteres: " + sequenciaCaracteres, JOptionPane.INFORMATION_MESSAGE);
 	}//case 1
-	
-	//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-	//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-	//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-	//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+	public static void relacaoProdutos(ArrayList<Produtos> arrayOriginalProdutos, ArrayList<Pereciveis> arrayOriginalPereciveis) {
+		String infos="";
+		ArrayList<Produtos> ArrayProdutos = new ArrayList();
+		ArrayList<Pereciveis> ArrayPereciveis = new ArrayList();
+		
+		infos = "Produtos não pereciveis: ";
+		for(Produtos produtos: arrayOriginalProdutos) {
+			ArrayProdutos.add(produtos);
+		}
+		
+		infos += "\nProdutos pereciveis: ";
+		for(Pereciveis pereciveis: arrayOriginalPereciveis) {
+			ArrayProdutos.add(pereciveis);
+		}
+	}//case 2
 	public static void buscaProdutoPeloNome(ArrayList<Produtos> arrayOriginalProdutos, ArrayList<Pereciveis> arrayOriginalPereciveis){
 	String infos="";
 	// Pergunta o nome do produto para o usuario
@@ -164,9 +174,17 @@ public class Menu {
 	ArrayList<Pereciveis> ArrayPereciveis = new ArrayList();
 	
 		for(Produtos produtos: arrayOriginalProdutos) {
+			infos = "Produtos não pereciveis: ";
 			if(produtos.getNomeproduto().indexOf(nomeProduto) == 0){
 				ArrayProdutos.add(produtos);
+			}
 		}
+		for(Pereciveis pereciveis: arrayOriginalPereciveis) {
+			infos += "\nProdutos pereciveis: ";
+			if(pereciveis.getNomeproduto().indexOf(nomeProduto) == 0){
+				ArrayProdutos.add(pereciveis);
+				
+			}
 		}
 		//Mostra as informações que foram coletadas na array.
 		infos = "Produtos localizados: ";
@@ -175,7 +193,6 @@ public class Menu {
 		}
 
 		JOptionPane.showMessageDialog(null, infos, "Relação de todos os clientes iniciados pela sequencia de caracteres: " + nomeProduto, JOptionPane.INFORMATION_MESSAGE);
-
 	}//case 3
 	public static void infoCompraMaisCara(){
 		

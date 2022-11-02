@@ -30,3 +30,9 @@ Produto
 feijao
 delicioso hmmmmmmmmm
 23.0
+Perecivel
+42
+feijao
+hmmmm
+42.0
+2022-02-02
