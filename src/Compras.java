@@ -5,7 +5,7 @@ public class Compras {
 	private String nomeCliente, identidade;
 	private int identificador;
 	private LocalDate dataCompra;
-	private double valorTotal;
+	private double valorTotalCompra, valorTotalPago;
 	private ArrayList <ItensCompra>vecItensCompra;
 	public String getNomeCliente() {
 		return nomeCliente;
@@ -26,10 +26,10 @@ public class Compras {
 		this.identidade = identidade;
 	}
 	public double getValorTotal() {
-		return valorTotal;
+		return valorTotalPago;
 	}
 	public void setValorTotal(double valorTotal) {
-		this.valorTotal = valorTotal;
+		this.valorTotalPago = valorTotal;
 		
 	}
 	public LocalDate getDataCompra() {
@@ -44,11 +44,18 @@ public class Compras {
 	public void setVecItensCompra(ArrayList <ItensCompra> vecItensCompra) {
 		this.vecItensCompra = vecItensCompra;
 	}
-	public Compras(String nomeCliente,String identidade ,int identificador, double valorTotal, LocalDate dataCompra, ArrayList<ItensCompra>vecItensCompra) {
+	public double getValorTotalCompra() {
+		return valorTotalCompra;
+	}
+	public void setValorTotalCompra(double valorTotalCompra) {
+		this.valorTotalCompra = valorTotalCompra;
+	}
+	public Compras(String nomeCliente,String identidade ,int identificador, double valorTotalCompra, double valorTotalPago, LocalDate dataCompra, ArrayList<ItensCompra>vecItensCompra) {
 		this.nomeCliente = nomeCliente;
 		this.identidade = identidade;
 		this.identificador = identificador;
-		this.valorTotal = valorTotal;
+		this.valorTotalCompra = valorTotalCompra;
+		this.valorTotalPago = valorTotalPago;
 		this.setDataCompra(dataCompra);
 		this.setVecItensCompra(vecItensCompra);
 	}

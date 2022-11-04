@@ -61,7 +61,7 @@ public class Menu {
 			case 6:
 				break;
 			case 7:
-				subMenuRelatorios(GerenciadorClientes.getVecPessoaFisica(), GerenciadorClientes.getVecPessoaJuridica(), GerenciadorProdutos.getVecProdutos(), GerenciadorProdutos.getVecPereciveis(), GerenciadorCompras);
+				subMenuRelatorios(GerenciadorClientes, GerenciadorProdutos, GerenciadorCompras);
 				break;
 			case 0: 
 				JOptionPane.showMessageDialog(null, "...", "Encerrando sistema!", JOptionPane.INFORMATION_MESSAGE);
@@ -73,7 +73,7 @@ public class Menu {
 		}while(auxMenu != 0);
 	}
 	
-	public static void subMenuRelatorios(ArrayList<PessoaFisica> vecPessoaFisica, ArrayList<PessoaJuridica> vecPessoaJuridica,ArrayList<Produtos> vecProdutos, ArrayList<Pereciveis> vecPereciveis, GerenciaCompra GerenciadorCompras) throws IOException {
+	public static void subMenuRelatorios(GerenciaCliente GerenciadorClientes, GerenciaProdutos GerenciadorProdutos, GerenciaCompra GerenciadorCompras) throws IOException {
 		int auxSubmenuRelatorios = 0;
 		do {
 			auxSubmenuRelatorios = Integer.parseInt(JOptionPane.showInputDialog(null,
@@ -95,7 +95,7 @@ public class Menu {
                     JOptionPane.QUESTION_MESSAGE));
 			switch(auxSubmenuRelatorios) {
 			case 1: 
-				mostraClientesQueComecamPorUmaSequenciaDeCaracteres(vecPessoaFisica, vecPessoaJuridica);
+				GerenciadorClientes.mostraClientesQueComecamPorUmaSequenciaDeCaracteres();
 				break;
 			case 2:
 				break;
@@ -111,41 +111,6 @@ public class Menu {
 				break;
 			}
 		}while(auxSubmenuRelatorios != 0);
-	}
-	
-	public static void mostraClientesQueComecamPorUmaSequenciaDeCaracteres(ArrayList<PessoaFisica> arrayOriginalPessoaFisica, ArrayList<PessoaJuridica> arrayOriginalPessoaJuridica) {
-		// Pergunta a sequencia de caracteres para o usuario
-		String sequenciaCaracteres = JOptionPane.showInputDialog(null, "Qual sequência de caracteres você deseja buscar?"
-				, "Clientes que possuem o nome iniciado por uma determinada sequência de caracteres",
-				JOptionPane.QUESTION_MESSAGE);
-		
-		ArrayList<PessoaFisica> ArrayPessoasFisicas = new ArrayList();
-		ArrayList<PessoaJuridica> ArrayPessoasJuridicas = new ArrayList();
-		// Procura ocorrencias de pessoas fisicas com nomes começando a partir da sequencia definida pelo usuario e coloca em uma array;
-		for(PessoaFisica pessoaFisica: arrayOriginalPessoaFisica) {
-			System.out.println(pessoaFisica.getNome().indexOf(sequenciaCaracteres) + pessoaFisica.getNome());
-			if(pessoaFisica.getNome().indexOf(sequenciaCaracteres) == 0){
-				ArrayPessoasFisicas.add(pessoaFisica);
-			}
-		}
-		// Procura ocorrencias de pessoas juridicas com nomes começando a partir da sequencia definida pelo usuario e coloca em uma array;
-		for(PessoaJuridica pessoaJuridica: arrayOriginalPessoaJuridica) {
-			if(pessoaJuridica.getNome().indexOf(sequenciaCaracteres) == 0){
-				ArrayPessoasJuridicas.add(pessoaJuridica);
-			}
-		}
-		// Mostra as informações que foram coletadas na array.
-		String infos = "Pessoas fisicas: ";
-		for(PessoaFisica pessoaFisica: ArrayPessoasFisicas) {
-			infos += pessoaFisica.paraString();
-		}
-		infos += "\nPessoas juridicas: ";
-		for(PessoaJuridica pessoaJuridica: ArrayPessoasJuridicas) {
-			infos += pessoaJuridica.paraString();
-		}
-		
-		
-		JOptionPane.showMessageDialog(null, infos, "Relação de todos os clientes iniciados pela sequencia de caracteres: " + sequenciaCaracteres, JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	public static String obtemInformacaoeVerificaRepeticaoCliente(String atributo, String mensagem, GerenciaCliente GerenciadorClientes) {

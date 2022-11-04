@@ -1,29 +1,33 @@
 InicioCompra
-Jorge
-4934839398
+Laura
+21398071897
 1
-32.0
+4.0
 2022-11-04
 ItemCompra
 Laranja
-2
+4
 1.0
-2.0
-ItemCompra
-Copo
-1
-30.0
-30.0
+4.0
+Total pago
+0
 
 InicioCompra
-Laura
-21398071897
-2
-2000.0
+emerson junior
+cnpj
+12
+2300.0
 2022-11-04
 ItemCompra
 Faca
 10
 200.0
 2000.0
+ItemCompra
+Garfo
+10
+30.0
+300.0
+Total pago
+0
 
