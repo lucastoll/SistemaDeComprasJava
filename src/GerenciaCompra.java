@@ -26,20 +26,22 @@ public void leCompra() throws IOException {
 	String nomeCliente="", identidade="", nomeProduto="",linha2="";
 	int identificador=0,quantidade=0;
 	float valorTotalCompra=0, valorUnitario=0, valorTotalProduto=0;
+	
 	ArrayList<ItensCompra>vecItensCompra= new ArrayList<ItensCompra>();
 	LocalDate data = null;
 	 File arquivoCompra = new File("./baseDados/compras.txt");
-		if(arquivoCompra.createNewFile()) {
-			  System.out.println("Arquivo criado: " + arquivoCompra.getName());
-			} 
-			else {
-			  System.out.println("Arquivo já existe.");
-			}
+	if(arquivoCompra.createNewFile()) {
+		  System.out.println("Arquivo criado: " + arquivoCompra.getName());
+	} 
+	else {
+		  System.out.println("Arquivo já existe.");
+	}
 		FileReader fr = new FileReader(arquivoCompra);
 		BufferedReader br = new BufferedReader(fr);
 		while (br.ready()) {
-			String linha1 = br.readLine();
-			if (linha1.equals("InicioCompra")) {
+			String linha1 = br.readLine();		
+			if(linha1.equals("InicioCompra")) {
+			System.out.println("To aqui");
 			nomeCliente = br.readLine();
 			identidade = br.readLine();
 			identificador = Integer.parseInt(br.readLine());
@@ -54,6 +56,9 @@ public void leCompra() throws IOException {
 				ItensCompra itemCompra = new ItensCompra(nomeProduto, quantidade, valorUnitario, valorTotalProduto);
 				vecItensCompra.add(itemCompra);
 				linha2=br.readLine();
+				if(linha2 == null) {
+					linha2 = "";
+				}
 			}while(linha2.equals("ItemCompra"));
 			
 			}
@@ -200,7 +205,7 @@ if (controlador == 1) {
 					}
 			FileWriter fileWriter = new FileWriter(arquivoCompra, true);
 			if(controlador==1) {
-				fileWriter.write("InicioCompra \n");
+				fileWriter.write("InicioCompra\n");
 				fileWriter.write(nomeEscolhidoCliente +"\n");
 				fileWriter.write(cpf +"\n");
 				fileWriter.write(identificador +"\n");
@@ -212,12 +217,10 @@ if (controlador == 1) {
 					fileWriter.write(compra.getQuantidade() +"\n");
 					fileWriter.write(compra.getPrecoUnitario()+ "\n");
 					fileWriter.write(compra.getValorTotal()+ "\n");
-				}
-				fileWriter.close();
-				
+				}				
 			}
 			else if (controlador ==2) {
-				fileWriter.write("InicioCompra \n");
+				fileWriter.write("InicioCompra\n");
 				fileWriter.write(nomeEscolhidoCliente +"\n");
 				fileWriter.write(cnpj +"\n");
 				fileWriter.write(identificador +"\n");
@@ -230,13 +233,14 @@ if (controlador == 1) {
 					fileWriter.write(compra.getPrecoUnitario()+ "\n");
 					fileWriter.write(compra.getValorTotal()+ "\n");
 				}
-				fileWriter.close();
-			}		
+			}
+			fileWriter.write("\n");
+			fileWriter.close();
 }
 public void mostraCompra() {
 	String nomes="";
 	for (Compras compra: this.vecCompra) {
-		nomes += compra.getNomeCliente();
+		nomes += compra.getNomeCliente() + "\n";
 	}
 	
 	JOptionPane.showMessageDialog(null, nomes, "TODOS OS NOMES DOS CLIENTES", JOptionPane.ERROR_MESSAGE);
