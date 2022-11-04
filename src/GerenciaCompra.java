@@ -66,11 +66,9 @@ public void leCompra() throws IOException {
 		getVecCompra().add(compra);
 		}
 		br.close();
-		fr.close();
-	
-		
-		
+		fr.close();		
 }
+
 public void cadastraCompra(ArrayList<PessoaFisica>vecPessoaFisica, ArrayList<PessoaJuridica>vecPessoaJuridica, ArrayList<Produtos>vecProdutos,ArrayList<Pereciveis>vecPereciveis) throws IOException{
 	int controlador =0, quantidade=0, proximaCompra=0, identificador =0;
 	String nomesCadastrados = "", nomeEscolhidoCliente="", nomeEscolhidoProduto="", produtosCadastrados ="", cpf="", cnpj="";
@@ -237,6 +235,7 @@ if (controlador == 1) {
 			fileWriter.write("\n");
 			fileWriter.close();
 }
+
 public void mostraCompra() {
 	String nomes="";
 	for (Compras compra: this.vecCompra) {

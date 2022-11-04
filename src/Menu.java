@@ -8,22 +8,14 @@ import java.time.LocalDate;
 public class Menu {
 	public static void main(String[] args) throws IOException {
 		int auxMenu = 0;
-		int codigo=23;
-		String nome = "Faca";
-		String descricao = "aluminio";
-		LocalDate data = LocalDate.parse("2002-02-17");
-		float preco = 30;
 		GerenciaCliente GerenciadorClientes = new GerenciaCliente();
 		GerenciaProdutos GerenciadorProdutos = new GerenciaProdutos();
-		Produtos teste = new Produtos (codigo, nome, descricao, preco);
-		Pereciveis teste2 = new Pereciveis (codigo, nome, descricao, preco, data);
-		GerenciaCompra teste3 = new GerenciaCompra();
-	
-	
+		GerenciaCompra GerenciadorCompras = new GerenciaCompra();
+		
 		do{
-			GerenciadorClientes.leClientes();//Le as informações do arquivo e atualiza os vetores cleintes apos qualquer operação do menu
+			GerenciadorClientes.leClientes();
 			GerenciadorProdutos.leProdutos();
-			teste3.leCompra();
+			GerenciadorCompras.leCompra();
 			
 			auxMenu = Integer.parseInt(JOptionPane.showInputDialog(null,
                     "Digite uma opção: \n"
@@ -64,14 +56,12 @@ public class Menu {
 				GerenciadorProdutos.cadastraProdutos();
 				break;
 			case 5: 
-				GerenciadorProdutos.MostraProdutos();
+				GerenciadorCompras.cadastraCompra(GerenciadorClientes.getVecPessoaFisica(), GerenciadorClientes.getVecPessoaJuridica(), GerenciadorProdutos.getVecProdutos(), GerenciadorProdutos.getVecPereciveis());
 				break;
 			case 6:
-				 System.out.println(teste.paraString());
-				 System.out.println(teste2.paraString());
 				break;
 			case 7:
-				subMenuRelatorios(GerenciadorClientes.getVecPessoaFisica(), GerenciadorClientes.getVecPessoaJuridica(), GerenciadorProdutos.getVecProdutos(), GerenciadorProdutos.getVecPereciveis(), teste3);
+				subMenuRelatorios(GerenciadorClientes.getVecPessoaFisica(), GerenciadorClientes.getVecPessoaJuridica(), GerenciadorProdutos.getVecProdutos(), GerenciadorProdutos.getVecPereciveis(), GerenciadorCompras);
 				break;
 			case 0: 
 				JOptionPane.showMessageDialog(null, "...", "Encerrando sistema!", JOptionPane.INFORMATION_MESSAGE);
@@ -83,7 +73,7 @@ public class Menu {
 		}while(auxMenu != 0);
 	}
 	
-	public static void subMenuRelatorios(ArrayList<PessoaFisica> vecPessoaFisica, ArrayList<PessoaJuridica> vecPessoaJuridica,ArrayList<Produtos> vecProdutos, ArrayList<Pereciveis> vecPereciveis, GerenciaCompra gerenciadorDeCompra) throws IOException {
+	public static void subMenuRelatorios(ArrayList<PessoaFisica> vecPessoaFisica, ArrayList<PessoaJuridica> vecPessoaJuridica,ArrayList<Produtos> vecProdutos, ArrayList<Pereciveis> vecPereciveis, GerenciaCompra GerenciadorCompras) throws IOException {
 		int auxSubmenuRelatorios = 0;
 		do {
 			auxSubmenuRelatorios = Integer.parseInt(JOptionPane.showInputDialog(null,
@@ -108,10 +98,11 @@ public class Menu {
 				mostraClientesQueComecamPorUmaSequenciaDeCaracteres(vecPessoaFisica, vecPessoaJuridica);
 				break;
 			case 2:
-				gerenciadorDeCompra.cadastraCompra(vecPessoaFisica, vecPessoaJuridica, vecProdutos, vecPereciveis);
 				break;
 			case 3:
-				gerenciadorDeCompra.mostraCompra();
+				break;
+			case 5:
+				GerenciadorCompras.mostraCompra();
 				break;
 			case 0:
 				break;
@@ -161,8 +152,6 @@ public class Menu {
 		boolean permissaoParaContinuar = true;
 		do{
 			permissaoParaContinuar = true;
-			
-			
 			atributo = JOptionPane.showInputDialog(null,
 					mensagem,
 	                "Cadastro de clientes",
@@ -270,11 +259,7 @@ public class Menu {
 			else {
 				JOptionPane.showMessageDialog(null, "Opção invalida!, verifique a digitação e tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
 			}
-		}while(escolhaTipoDeCliente < 1 || escolhaTipoDeCliente > 2);
-		
+		}while(escolhaTipoDeCliente < 1 || escolhaTipoDeCliente > 2);	
 		return ArrayInfosCliente;
 	}
-	/*public static ArrayList<String> obtemInformaçõesProdutos(GerenciaProdutos GerenciadorProdutos){
-		
-	}*/
 }

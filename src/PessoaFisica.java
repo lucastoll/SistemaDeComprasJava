@@ -3,13 +3,11 @@ import java.time.LocalDate;
 public class PessoaFisica extends Cliente{
 	private String CPF;
 	private int maximoDeParcelas;
-	
 	public PessoaFisica(LocalDate dataCadastro, Endereço endereço, String nome, String cpf, int maximoDeParcelas) {
 		super(dataCadastro, endereço, nome);
 		this.setCPF(cpf);
 		this.setMaximoDeParcelas(maximoDeParcelas);
 	}
-
 	@Override
 	public String paraString() {
 		String infos = "\n\n";
@@ -21,7 +19,6 @@ public class PessoaFisica extends Cliente{
 		
 		return infos;
 	}
-
 	//maximoDeParcelas
 	public int getMaximoDeParcelas() {
 		return maximoDeParcelas;
