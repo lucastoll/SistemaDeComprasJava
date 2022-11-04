@@ -3,7 +3,7 @@ public class Produtos {
 	
 		private int codigo;
 		private String nomeproduto, descricao;
-		private double preco;
+		private float preco;
 		public int getCodigo() {
 			return codigo;
 		}
@@ -22,28 +22,27 @@ public class Produtos {
 		public void setDescricao(String descricao) {
 			this.descricao = descricao;
 		}
-		public double getPreco() {
+		public float getPreco() {
 			return preco;
 		}
-		public void setPreco(double preco) {
+		public void setPreco(float preco) {
 			this.preco = preco;
 		}
 		
 
-		public Produtos(int codigo, String nomeproduto, String descricao, double preco) {
+		public Produtos(int codigo, String nomeproduto, String descricao, float preco) {
 			this.codigo = codigo;
 			this.nomeproduto = nomeproduto;
 			this.descricao = descricao;
 			this.preco = preco;
 		}
-		
-		/*public String paraString() {
-			
-			
-			return " ";
-		}*/
-			
-	
-		
+		public String paraString() {
+			String info="";
+			info += "\n"+ codigo + "\n";
+			info += nomeproduto + "\n";
+			info+= descricao + "\n";
+			info += preco + "\n";
+			return info;
+		}
 		}
 

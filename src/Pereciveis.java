@@ -6,7 +6,7 @@ public class Pereciveis extends Produtos {
 	
 	private LocalDate datadevalidade;
 	
-	public Pereciveis(int codigo, String nomeproduto, String descricao, double preco, LocalDate datadevalidade) {
+	public Pereciveis(int codigo, String nomeproduto, String descricao, float preco, LocalDate datadevalidade) {
 		super(codigo, nomeproduto, descricao, preco);
         this.datadevalidade = datadevalidade;
 	}
@@ -26,6 +26,15 @@ public class Pereciveis extends Produtos {
 			estavencido = true;
 		}
 		return estavencido;
+	}
+	public String paraString() {
+		String info="";
+		info += "\n"+ getCodigo() + "\n";
+		info += getNomeproduto() + "\n";
+		info+= getDescricao() + "\n";
+		info += getPreco() + "\n";
+		info += datadevalidade + "\n" ;
+		return info;
 	}
 }
 

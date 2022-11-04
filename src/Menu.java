@@ -8,11 +8,23 @@ import java.time.LocalDate;
 public class Menu {
 	public static void main(String[] args) throws IOException {
 		int auxMenu = 0;
+		int codigo=23;
+		String nome = "Faca";
+		String descricao = "aluminio";
+		LocalDate data = LocalDate.parse("2002-02-17");
+		float preco = 30;
 		GerenciaCliente GerenciadorClientes = new GerenciaCliente();
 		GerenciaProdutos GerenciadorProdutos = new GerenciaProdutos();
+		Produtos teste = new Produtos (codigo, nome, descricao, preco);
+		Pereciveis teste2 = new Pereciveis (codigo, nome, descricao, preco, data);
+		GerenciaCompra teste3 = new GerenciaCompra();
+	
+	
 		do{
 			GerenciadorClientes.leClientes();//Le as informações do arquivo e atualiza os vetores cleintes apos qualquer operação do menu
 			GerenciadorProdutos.leProdutos();
+			teste3.leCompra();
+			
 			auxMenu = Integer.parseInt(JOptionPane.showInputDialog(null,
                     "Digite uma opção: \n"
                     + "1 - Cadastro de clientes\n"
@@ -54,8 +66,12 @@ public class Menu {
 			case 5: 
 				GerenciadorProdutos.MostraProdutos();
 				break;
+			case 6:
+				 System.out.println(teste.paraString());
+				 System.out.println(teste2.paraString());
+				break;
 			case 7:
-				subMenuRelatorios(GerenciadorClientes.getVecPessoaFisica(), GerenciadorClientes.getVecPessoaJuridica(), GerenciadorProdutos.getVecProdutos(),GerenciadorProdutos.getVecPereciveis());
+				subMenuRelatorios(GerenciadorClientes.getVecPessoaFisica(), GerenciadorClientes.getVecPessoaJuridica(), GerenciadorProdutos.getVecProdutos(), GerenciadorProdutos.getVecPereciveis(), teste3);
 				break;
 			case 0: 
 				JOptionPane.showMessageDialog(null, "...", "Encerrando sistema!", JOptionPane.INFORMATION_MESSAGE);
@@ -67,7 +83,7 @@ public class Menu {
 		}while(auxMenu != 0);
 	}
 	
-	public static void subMenuRelatorios(ArrayList<PessoaFisica> vecPessoaFisica, ArrayList<PessoaJuridica> vecPessoaJuridica, ArrayList<Produtos> vecProdutos, ArrayList<Pereciveis> vecPereciveis) {
+	public static void subMenuRelatorios(ArrayList<PessoaFisica> vecPessoaFisica, ArrayList<PessoaJuridica> vecPessoaJuridica,ArrayList<Produtos> vecProdutos, ArrayList<Pereciveis> vecPereciveis, GerenciaCompra gerenciadorDeCompra) throws IOException {
 		int auxSubmenuRelatorios = 0;
 		do {
 			auxSubmenuRelatorios = Integer.parseInt(JOptionPane.showInputDialog(null,
@@ -91,14 +107,11 @@ public class Menu {
 			case 1: 
 				mostraClientesQueComecamPorUmaSequenciaDeCaracteres(vecPessoaFisica, vecPessoaJuridica);
 				break;
+			case 2:
+				gerenciadorDeCompra.cadastraCompra(vecPessoaFisica, vecPessoaJuridica, vecProdutos, vecPereciveis);
+				break;
 			case 3:
-				buscaProdutoPeloNome(vecProdutos, vecPereciveis);
-				break;
-			case 9:
-				infoCompraMaisCara();
-				break;
-			case 10:
-				infoCompraMaisBarata();
+				gerenciadorDeCompra.mostraCompra();
 				break;
 			case 0:
 				break;
@@ -108,12 +121,6 @@ public class Menu {
 			}
 		}while(auxSubmenuRelatorios != 0);
 	}
-	
-	
-
-	
-	
-	
 	
 	public static void mostraClientesQueComecamPorUmaSequenciaDeCaracteres(ArrayList<PessoaFisica> arrayOriginalPessoaFisica, ArrayList<PessoaJuridica> arrayOriginalPessoaJuridica) {
 		// Pergunta a sequencia de caracteres para o usuario
@@ -148,41 +155,7 @@ public class Menu {
 		
 		
 		JOptionPane.showMessageDialog(null, infos, "Relação de todos os clientes iniciados pela sequencia de caracteres: " + sequenciaCaracteres, JOptionPane.INFORMATION_MESSAGE);
-	}//case 1
-	
-	//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-	//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-	//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-	//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-	public static void buscaProdutoPeloNome(ArrayList<Produtos> arrayOriginalProdutos, ArrayList<Pereciveis> arrayOriginalPereciveis){
-	String infos="";
-	// Pergunta o nome do produto para o usuario
-	String nomeProduto = JOptionPane.showInputDialog(null, "Qual o nome do produto que você deseja buscar?","Busca de produto por nome",
-			JOptionPane.QUESTION_MESSAGE);
-	
-	ArrayList<Produtos> ArrayProdutos = new ArrayList();
-	ArrayList<Pereciveis> ArrayPereciveis = new ArrayList();
-	
-		for(Produtos produtos: arrayOriginalProdutos) {
-			if(produtos.getNomeproduto().indexOf(nomeProduto) == 0){
-				ArrayProdutos.add(produtos);
-		}
-		}
-		//Mostra as informações que foram coletadas na array.
-		infos = "Produtos localizados: ";
-		for(Produtos produtos: ArrayProdutos){
-			infos += produtos.getNomeproduto();
-		}
-
-		JOptionPane.showMessageDialog(null, infos, "Relação de todos os clientes iniciados pela sequencia de caracteres: " + nomeProduto, JOptionPane.INFORMATION_MESSAGE);
-
-	}//case 3
-	public static void infoCompraMaisCara(){
-		
-	}//case 9
-	public static void infoCompraMaisBarata(){
-		
-	}//case 10
+	}
 	
 	public static String obtemInformacaoeVerificaRepeticaoCliente(String atributo, String mensagem, GerenciaCliente GerenciadorClientes) {
 		boolean permissaoParaContinuar = true;
