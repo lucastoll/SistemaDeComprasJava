@@ -1,38 +1,17 @@
 Produto
-100
-Rafael Rosario
-44455
-100000.0
-Produto
-455
-Jabirosca
-yiyiyiyi
-4000.0
-Pereciveis
-4
-r
-r
-5.0
-2002-06-03
-Pereciveis
-2
-e
-e
-4.0
-2002-03-01
-Produto
+123
+feijao
+gostosinho
+34.0
+Perecivel
 123
 arroz
-branco e soltinho que delicia HHMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-123.0
-Produto
-234
-feijao
-delicioso hmmmmmmmmm
+soltinho e branquinho
 23.0
+2023-05-23
 Perecivel
-42
+423
 feijao
-hmmmm
-42.0
-2022-02-02
+gosto-gostozinho
+25.0
+2023-03-23

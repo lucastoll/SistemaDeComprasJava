@@ -11,7 +11,7 @@ public class PessoaJuridica extends Cliente{
 		this.setRazaoSocial(razaoSocial);
 		this.setPrazoMaximoPagamentoEmDias(prazoMaximoPagamentoEmDias);
 	}
-	
+
 	@Override
 	public String paraString() {
 		String infos = "\n\n";
@@ -24,7 +24,6 @@ public class PessoaJuridica extends Cliente{
 		
 		return infos;
 	}
-
 	//CNPJ
 	public String getCNPJ() {
 		return CNPJ;

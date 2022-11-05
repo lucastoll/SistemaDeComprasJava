@@ -154,7 +154,7 @@ public class GerenciaProdutos {
 		for(Produtos produtos: this.vecProdutos) {
 			produtosCadastrados += produtos.getNomeproduto() + "\n";
 		}
-		JOptionPane.showMessageDialog(null , produtosCadastrados,"oi" ,JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null , produtosCadastrados, "oi", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 

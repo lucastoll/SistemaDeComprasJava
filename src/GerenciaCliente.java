@@ -275,7 +275,40 @@ public class GerenciaCliente {
 		}		
 	}
 	
-	
+	public void mostraClientesQueComecamPorUmaSequenciaDeCaracteres() {
+		// Pergunta a sequencia de caracteres para o usuario
+		String sequenciaCaracteres = JOptionPane.showInputDialog(null, "Qual sequência de caracteres você deseja buscar?"
+				, "Clientes que possuem o nome iniciado por uma determinada sequência de caracteres",
+				JOptionPane.QUESTION_MESSAGE);
+		
+		ArrayList<PessoaFisica> ArrayPessoasFisicas = new ArrayList();
+		ArrayList<PessoaJuridica> ArrayPessoasJuridicas = new ArrayList();
+		// Procura ocorrencias de pessoas fisicas com nomes começando a partir da sequencia definida pelo usuario e coloca em uma array;
+		for(PessoaFisica pessoaFisica: this.vecPessoaFisica) {
+			System.out.println(pessoaFisica.getNome().indexOf(sequenciaCaracteres) + pessoaFisica.getNome());
+			if(pessoaFisica.getNome().indexOf(sequenciaCaracteres) == 0){
+				ArrayPessoasFisicas.add(pessoaFisica);
+			}
+		}
+		// Procura ocorrencias de pessoas juridicas com nomes começando a partir da sequencia definida pelo usuario e coloca em uma array;
+		for(PessoaJuridica pessoaJuridica: this.vecPessoaJuridica) {
+			if(pessoaJuridica.getNome().indexOf(sequenciaCaracteres) == 0){
+				ArrayPessoasJuridicas.add(pessoaJuridica);
+			}
+		}
+		// Mostra as informações que foram coletadas na array.
+		String infos = "Pessoas fisicas: ";
+		for(PessoaFisica pessoaFisica: ArrayPessoasFisicas) {
+			infos += pessoaFisica.paraString();
+		}
+		infos += "\nPessoas juridicas: ";
+		for(PessoaJuridica pessoaJuridica: ArrayPessoasJuridicas) {
+			infos += pessoaJuridica.paraString();
+		}
+		
+		
+		JOptionPane.showMessageDialog(null, infos, "Relação de todos os clientes iniciados pela sequencia de caracteres: " + sequenciaCaracteres, JOptionPane.INFORMATION_MESSAGE);
+	}
 }
 
  

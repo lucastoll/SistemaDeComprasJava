@@ -1,0 +1,33 @@
+InicioCompra
+Laura
+21398071897
+1
+4.0
+2022-11-04
+ItemCompra
+Laranja
+4
+1.0
+4.0
+Total pago
+4.0
+
+InicioCompra
+emerson junior
+cnpj
+12
+2300.0
+2022-11-04
+ItemCompra
+Faca
+10
+200.0
+2000.0
+ItemCompra
+Garfo
+10
+30.0
+300.0
+Total pago
+0.0
+
