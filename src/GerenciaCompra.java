@@ -21,6 +21,71 @@ public GerenciaCompra() {
 	setVecCompra(vecCompra);
 }
 
+public void efetuaPagamento(String id) throws IOException {
+	String infos = "";
+	String pagamento = "";
+	
+	for(Compras compra: this.vecCompra) {
+		if(compra.getIdentificador() ==  Integer.parseInt(id)) {
+			infos = "Quanto você deseja pagar?\n" + "Valor total compra: " + compra.getValorTotalCompra() + " | " + "Valor total pago: " + compra.getValorTotalPago();
+			
+			do {
+				pagamento = JOptionPane.showInputDialog(null, infos, JOptionPane.QUESTION_MESSAGE);
+			}while(Double.parseDouble(pagamento) <= 0 || Double.parseDouble(pagamento) > compra.getValorTotalCompra() - compra.getValorTotalPago());
+			
+			alteraTotalPagoNoArquivo(id, pagamento, compra.getValorTotalPago());
+		}
+	}
+}
+
+public void alteraTotalPagoNoArquivo(String id, String pagamento, double valorTotalPago) throws IOException{
+	// Abre o arquivo original e cria um arquivo temporario
+	File arquivoOriginal = new File("./baseDados/compras.txt");
+	File arquivoTemporario = new File("./baseDados/comprasTemp.txt");
+	arquivoTemporario.createNewFile();
+	// Declara um reader para o arquivo original e um writer para o temporario
+    BufferedReader bufferedReader = new BufferedReader(new FileReader(arquivoOriginal));
+	FileWriter fileWriter = new FileWriter(arquivoTemporario, false);
+	
+	String linha = "";
+	
+	
+	// este while tem como intuito reescrever todas as linhas do arquivo original no temporario
+	// com exceção da linha do valorTotalPago da compra que está sendo alterada
+	while(bufferedReader.ready()) {
+		linha = bufferedReader.readLine();
+		if(linha.equals(id)) {	
+			// Se a linha for igual ao ID, ler informações até chegar no Total pago
+			// pois abaixo do total pago esta a informação que queremos substituir com esta função
+			while(!linha.equals("Total pago")) {
+				fileWriter.write(linha + "\n");	
+				linha = bufferedReader.readLine();
+			}
+			//Escreve o valor novo e pula uma linha, para o arquivo continuar sendo reescrito porém agora com a linha nova que foi definida no lugar do antigo valorTotalPago
+			fileWriter.write("Total pago\n");
+			fileWriter.write((Double.parseDouble(pagamento) + valorTotalPago) + "\n");
+			bufferedReader.readLine();
+
+			continue;
+		}
+		else { 
+			fileWriter.write(linha + "\n");	
+		}
+	}
+	fileWriter.close(); 
+	bufferedReader.close(); 
+	
+  //Deleta o arquivo original
+  if (!arquivoOriginal.delete()) {
+    System.out.println("Não foi possível deletar o arquivo");
+    return;
+  }
+  //Renomeia o arquivo temporario para o nome do arquivo original
+  if (!arquivoTemporario.renameTo(arquivoOriginal))
+    System.out.println("Não foi possível renomear o arquivo");
+}
+
+
 public void leCompra() throws IOException {
 	this.vecCompra.clear();
 	String nomeCliente="", identidade="", nomeProduto="",linha2="";
@@ -61,7 +126,7 @@ public void leCompra() throws IOException {
 					}
 				}while(linha2.equals("ItemCompra"));
 				
-				valorTotalPago = Integer.parseInt(br.readLine());
+				valorTotalPago = Float.parseFloat(br.readLine());
 				Compras compra = new Compras(nomeCliente, identidade, identificador, valorTotalCompra, valorTotalPago, data, vecItensCompra);
 				getVecCompra().add(compra);
 			}
@@ -168,16 +233,17 @@ public void cadastraCompra(ArrayList<PessoaFisica>vecPessoaFisica, ArrayList<Pes
 	}while(proximaCompra==1);
 	boolean mesmoIdentificador = false;
 	do {
+		mesmoIdentificador = false;
 		identificador = Integer.parseInt(JOptionPane.showInputDialog(null,"Digite o identificador da compra: ", JOptionPane.INFORMATION_MESSAGE));
 		 for (Compras compra: this.vecCompra) {
 			 if(compra.getIdentificador()==identificador) {
-					mesmoIdentificador = false;
+					mesmoIdentificador = true;
 				}
 		 }
-		 if (mesmoIdentificador==true) {
+		 if(mesmoIdentificador==true){
 			 JOptionPane.showMessageDialog(null, "Identificador ja existente, por favor, digite um novo: ", "Erro", JOptionPane.ERROR_MESSAGE);
 		 }
-	}while(mesmoIdentificador==true);
+	}while(mesmoIdentificador);
 	if(controlador==1) {
 		 for (PessoaFisica pessoa: vecPessoaFisica) {
 			 if(pessoa.getNome().equals(nomeEscolhidoCliente)) {
@@ -234,17 +300,19 @@ public void cadastraCompra(ArrayList<PessoaFisica>vecPessoaFisica, ArrayList<Pes
 			}
 		}
 		fileWriter.write("Total pago\n");
-		fileWriter.write("0\n\n");
+		fileWriter.write("0.0\n\n");
 		fileWriter.close();
 }
 
-public void mostraCompra() {
-	String nomes="";
+public void mostraTodasAsCompras() {
+	String infos = "";
+	int i = 0;
 	for (Compras compra: this.vecCompra) {
-		nomes += compra.getNomeCliente() + "\n";
+		infos = "";
+		infos += compra.paraString();
+		i++;
+		JOptionPane.showMessageDialog(null, infos, "Mostrando todas as compras - " + i + "/" + this.vecCompra.size(), JOptionPane.ERROR_MESSAGE);
 	}
-	
-	JOptionPane.showMessageDialog(null, nomes, "TODOS OS NOMES DOS CLIENTES", JOptionPane.ERROR_MESSAGE);
 }
 
 }

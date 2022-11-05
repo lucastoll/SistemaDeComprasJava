@@ -10,7 +10,7 @@ Laranja
 1.0
 4.0
 Total pago
-0
+4.0
 
 InicioCompra
 emerson junior
@@ -29,5 +29,5 @@ Garfo
 30.0
 300.0
 Total pago
-0
+0.0
 

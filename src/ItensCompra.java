@@ -32,6 +32,17 @@ public class ItensCompra {
 		this.precoUnitario = precoUnitario;
 		this.valorTotal = valorTotal;
 	}
+	
+	public String paraString(){
+		String infos = "";
+		
+		infos += "\nNome produto: " + this.getNomeProduto() + "\n";
+		infos += "Quantidade: " + this.getQuantidade() + "\n";
+		infos += "Preço unitário: " + this.getPrecoUnitario() + "\n";
+		infos += "Valor total: " + this.valorTotal + "\n";
+		
+		return infos;
+	} 
 }
 
 

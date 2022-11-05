@@ -7,6 +7,7 @@ public class Compras {
 	private LocalDate dataCompra;
 	private double valorTotalCompra, valorTotalPago;
 	private ArrayList <ItensCompra>vecItensCompra;
+	
 	public String getNomeCliente() {
 		return nomeCliente;
 	}
@@ -25,12 +26,17 @@ public class Compras {
 	public void setIdentidade(String identidade) {
 		this.identidade = identidade;
 	}
-	public double getValorTotal() {
+	public double getValorTotalPago() {
 		return valorTotalPago;
 	}
-	public void setValorTotal(double valorTotal) {
-		this.valorTotalPago = valorTotal;
-		
+	public void setValorTotalPago(double valorTotalPago) {
+		this.valorTotalPago = valorTotalPago;
+	}
+	public double getValorTotalCompra() {
+		return valorTotalCompra;
+	}
+	public void setValorTotalCompra(double valorTotalCompra) {
+		this.valorTotalCompra = valorTotalCompra;
 	}
 	public LocalDate getDataCompra() {
 		return dataCompra;
@@ -44,12 +50,7 @@ public class Compras {
 	public void setVecItensCompra(ArrayList <ItensCompra> vecItensCompra) {
 		this.vecItensCompra = vecItensCompra;
 	}
-	public double getValorTotalCompra() {
-		return valorTotalCompra;
-	}
-	public void setValorTotalCompra(double valorTotalCompra) {
-		this.valorTotalCompra = valorTotalCompra;
-	}
+
 	public Compras(String nomeCliente,String identidade ,int identificador, double valorTotalCompra, double valorTotalPago, LocalDate dataCompra, ArrayList<ItensCompra>vecItensCompra) {
 		this.nomeCliente = nomeCliente;
 		this.identidade = identidade;
@@ -58,5 +59,22 @@ public class Compras {
 		this.valorTotalPago = valorTotalPago;
 		this.setDataCompra(dataCompra);
 		this.setVecItensCompra(vecItensCompra);
+	}
+	
+	public String paraString() {
+		String infos = "";
+		
+		infos += "Nome do cliente: " + this.getNomeCliente() + "\n";
+		infos += "ID da compra: " + this.getIdentificador() + "\n";
+		infos += "Documento de identidade do cliente: " + this.getIdentidade() + "\n";
+		infos += "Valor total da compra: " + this.getValorTotalCompra() + "\n";
+		infos += "Valor total pago: " + this.getValorTotalPago() + "\n";
+		infos += "Data da compra: " + this.getDataCompra() + "\n";
+		infos += "\nItens da compra\n";
+		for(int i = 0; i < this.getVecItensCompra().size(); i++) {
+			infos += this.getVecItensCompra().get(i).paraString();
+		}
+		
+		return infos;
 	}
 }

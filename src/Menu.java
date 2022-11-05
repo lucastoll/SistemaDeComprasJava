@@ -59,6 +59,8 @@ public class Menu {
 				GerenciadorCompras.cadastraCompra(GerenciadorClientes.getVecPessoaFisica(), GerenciadorClientes.getVecPessoaJuridica(), GerenciadorProdutos.getVecProdutos(), GerenciadorProdutos.getVecPereciveis());
 				break;
 			case 6:
+				String idBuscado = obtemIDCompraNaoPaga(GerenciadorCompras);
+				GerenciadorCompras.efetuaPagamento(idBuscado);
 				break;
 			case 7:
 				subMenuRelatorios(GerenciadorClientes, GerenciadorProdutos, GerenciadorCompras);
@@ -71,6 +73,28 @@ public class Menu {
 				break;
 			}
 		}while(auxMenu != 0);
+	}
+	
+	public static String obtemIDCompraNaoPaga(GerenciaCompra GerenciadorCompras) {
+		String infos = "ID's de compras cadastradas no sistema: \n", id = "";
+		boolean permissaoPraContinuar = false;
+		
+		for(Compras compra: GerenciadorCompras.getVecCompra()) {
+			if(compra.getValorTotalCompra() - compra.getValorTotalPago() != 0.0) {				
+				infos += compra.getIdentificador() + "\n";
+			}
+		}
+		
+		do {
+			id = JOptionPane.showInputDialog(null, infos, JOptionPane.QUESTION_MESSAGE);
+			for(Compras compra: GerenciadorCompras.getVecCompra()) {
+				if(compra.getIdentificador() ==  Integer.parseInt(id)  && compra.getValorTotalCompra() - compra.getValorTotalPago() != 0) {
+					permissaoPraContinuar = true;
+				}
+			}
+		}while(permissaoPraContinuar == false);
+		
+		return id;
 	}
 	
 	public static void subMenuRelatorios(GerenciaCliente GerenciadorClientes, GerenciaProdutos GerenciadorProdutos, GerenciaCompra GerenciadorCompras) throws IOException {
@@ -102,7 +126,7 @@ public class Menu {
 			case 3:
 				break;
 			case 5:
-				GerenciadorCompras.mostraCompra();
+				GerenciadorCompras.mostraTodasAsCompras();
 				break;
 			case 0:
 				break;

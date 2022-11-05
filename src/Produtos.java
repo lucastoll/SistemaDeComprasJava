@@ -35,10 +35,10 @@ public class Produtos {
 	}
 	public String paraString() {
 		String info="";
-		info += "\n"+ codigo + "\n";
-		info += nomeproduto + "\n";
-		info+= descricao + "\n";
-		info += preco + "\n";
+		info += "Codigo: " + codigo + "\n";
+		info += "Nome do produto: " +  nomeproduto + "\n";
+		info += "Descrição do produto: " + descricao + "\n";
+		info += "Preço: " + preco + "\n";
 		return info;
 	}
 }
