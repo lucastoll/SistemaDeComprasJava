@@ -1,8 +1,4 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -19,7 +15,6 @@ public class GerenciaProdutos {
 		setVecProdutos(vecProdutos);
 		ArrayList<Pereciveis>vecPereciveis = new ArrayList<Pereciveis>();
 		setVecPereciveis(vecPereciveis);
-		//rosario
 	}
 	public ArrayList<Produtos> getVecProdutos() {
 		return vecProdutos;
@@ -147,16 +142,80 @@ public class GerenciaProdutos {
 		}
 		
 	}
-	public void MostraProdutos () {
+	public void relacaoProdutos () {
+
+		ArrayList<Produtos> ArrayProdutos = new ArrayList();
+		ArrayList<Pereciveis> ArrayPereciveis = new ArrayList();
+		// Procura ocorrencias de pessoas fisicas com nomes começando a partir da sequencia definida pelo usuario e coloca em uma array;
+		for(Produtos produtos: this.vecProdutos) {
+			ArrayProdutos.add(produtos);
+		}
+		// Procura ocorrências de pessoas jurídicas com nomes começando a partir da sequência definida pelo usuário e coloca em uma array;
+		for(Pereciveis pereciveis: this.vecPereciveis) {
+			ArrayPereciveis.add(pereciveis);
+		}
+		// Mostra as informações que foram coletadas na array.
+		String infos = "Não pereciveis: \n";
+		for(Produtos produtos: ArrayProdutos) {
+			infos += produtos.paraString();
+		}
+		infos += "\nPereciveis: ";
+		for(Pereciveis pereciveis: ArrayPereciveis) {
+			infos += pereciveis.paraString();
+		}
 		
-		String produtosCadastrados =" ";
+		
+		JOptionPane.showMessageDialog(null, infos, "Relação de todos os produtos: ", JOptionPane.INFORMATION_MESSAGE);
+	}//case 2
+	public void buscaProdutoPeloNome(){
+		String infos="";
+		// Pergunta o nome do produto para o usuario
+		String nomeProduto = JOptionPane.showInputDialog(null, "Qual o nome do produto que você deseja buscar?","Busca de produto pelo nome",
+				JOptionPane.QUESTION_MESSAGE);
+		
+		ArrayList<Produtos> ArrayProdutos = new ArrayList();
+		ArrayList<Pereciveis> ArrayPereciveis = new ArrayList();
 		
 		for(Produtos produtos: this.vecProdutos) {
-			produtosCadastrados += produtos.getNomeproduto() + "\n";
+			if(produtos.getNomeproduto().indexOf(nomeProduto) == 0){
+			ArrayProdutos.add(produtos);
+			}
 		}
-		JOptionPane.showMessageDialog(null , produtosCadastrados, "oi", JOptionPane.INFORMATION_MESSAGE);
+		for(Pereciveis pereciveis: this.vecPereciveis) {
+			if(pereciveis.getNomeproduto().indexOf(nomeProduto) == 0){
+				ArrayPereciveis.add(pereciveis);
+				
+			}
 		}
-	}
+		// Mostra as informações que foram coletadas na array.
+				infos += "Não pereciveis: \n";
+				for(Produtos produtos: ArrayProdutos) {
+					infos += produtos.paraString();
+				}
+				infos += "\nPereciveis: ";
+				for(Pereciveis pereciveis: ArrayPereciveis) {
+					infos += pereciveis.paraString();
+				}
+
+		JOptionPane.showMessageDialog(null, infos, "Busca de Produtos pelo nome" + nomeProduto, JOptionPane.INFORMATION_MESSAGE);
+	}//case 3
+	public void relacaoProdutosVencidos() {
+		String infos="";
+		
+		ArrayList<Pereciveis> ArrayPereciveis = new ArrayList();
+		// Procura ocorrências de pessoas jurídicas com nomes começando a partir da sequência definida pelo usuário e coloca em uma array;
+		for(Pereciveis pereciveis: this.vecPereciveis) {
+			if(pereciveis.vencimento() == true)
+			ArrayPereciveis.add(pereciveis);
+		}
+		infos += "\nVencidos: ";
+		for(Pereciveis pereciveis: ArrayPereciveis) {
+			infos += pereciveis.paraString();
+		}
+		
+		JOptionPane.showMessageDialog(null, infos, "Relação de todos os clientes iniciados pela sequencia de caracteres: ", JOptionPane.INFORMATION_MESSAGE);
+	}//case 4
+}//class
 
 
 	

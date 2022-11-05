@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class GerenciaCompra {
-private ArrayList <Compras>vecCompra;
+private ArrayList <Compras> vecCompra;
 public ArrayList<Compras> getVecCompra() {
 	return vecCompra;
 }
@@ -304,18 +304,69 @@ public void cadastraCompra(ArrayList<PessoaFisica>vecPessoaFisica, ArrayList<Pes
 		fileWriter.close();
 }
 
-public void mostraTodasAsCompras() {
-	String infos = "";
-	int i = 0;
-	for (Compras compra: this.vecCompra) {
-		infos = "";
-		infos += compra.paraString();
-		i++;
-		JOptionPane.showMessageDialog(null, infos, "Mostrando todas as compras - " + i + "/" + this.vecCompra.size(), JOptionPane.ERROR_MESSAGE);
-	}
-}
+	public void mostraTodasAsCompras() {
+		String infos = "";
+		int i = 0;
+		for (Compras compra: this.vecCompra) {
+			infos = "";
+			infos += compra.paraString();
+			i++;
+			JOptionPane.showMessageDialog(null, infos, "Mostrando todas as compras - " + i + "/" + this.vecCompra.size(), JOptionPane.INFORMATION_MESSAGE);
+		}
+	}//case 5
+	public void buscaCompraPeloNumero() {
+		String infos = "";
+		
+		String idCompra = JOptionPane.showInputDialog(null, "Qual o id da compra que deseja?"
+				, "Buscar Compra pelo número",
+				JOptionPane.QUESTION_MESSAGE);
+		
+		ArrayList<Compras> ArrayCompra = new ArrayList();
+		
+		for(Compras compra: this.vecCompra)
+			if(compra.getIdentificador() == Integer.parseInt(idCompra)){
+				ArrayCompra.add(compra);
+			}
+		// Mostra as informações que foram coletadas na array.
+		infos += "Compras pelo id: "+ idCompra + "\n";
+		for(Compras compra: ArrayCompra) {
+			infos += compra.paraString();
+		}
+		JOptionPane.showMessageDialog(null, infos, "Mostrando todas as Compras pelo id"+ idCompra, JOptionPane.INFORMATION_MESSAGE);
+	}//case 6
+	public void relacaoComprasNaoPagas() {
+		String infos = "";
+		
+		ArrayList<Compras> ArrayCompra = new ArrayList();
+		
+		for(Compras compra: this.vecCompra)
+			if(compra.getValorTotalPago() < compra.getValorTotalCompra()){
+				ArrayCompra.add(compra);
+			}
+		infos += "Compras pelo id: \n";
+		for(Compras compra: ArrayCompra) {
+			infos += compra.paraString();
+		}
+		JOptionPane.showMessageDialog(null, infos, "Mostrando todas as Compras não pagas", JOptionPane.INFORMATION_MESSAGE);
+	}//case 7
+	public void ultimasDezCompras() {
+		String infos = "";
+		int i = 0, j = 0;
+		ArrayList<Compras> ArrayCompra = new ArrayList();
+		
+		for (Compras compra: this.vecCompra) {
+				if(compra.getValorTotalPago() == compra.getValorTotalCompra() && j<10){
+					ArrayCompra.add(compra);
+					infos = "";
+					infos += compra.paraString();
+					JOptionPane.showMessageDialog(null, infos, "Mostrando todas as ultimas 10 compras", JOptionPane.INFORMATION_MESSAGE);
+					i++;
+					j++;
+				}
 
-}
+		}
+	}//case 8
+}//class
 
 
 

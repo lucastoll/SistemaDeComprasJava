@@ -125,10 +125,29 @@ public class Menu {
 			case 3:
 				GerenciadorProdutos.buscaProdutoPeloNome();
 				break;
+			case 4:
+				GerenciadorProdutos.relacaoProdutosVencidos();
+				break;
 			case 5:
 				GerenciadorCompras.mostraTodasAsCompras();
 				break;
+			case 6:
+				GerenciadorCompras.buscaCompraPeloNumero();
+				break;
+			case 7:
+				GerenciadorCompras.relacaoComprasNaoPagas();
+				break;
+			case 8:
+				GerenciadorCompras.ultimasDezCompras();
+				break;
+			case 9:
+				break;
+			case 10:
+				break;
+			case 11:
+				break;
 			case 0:
+				auxSubmenuRelatorios = 0;
 				break;
 			default: 
 				JOptionPane.showMessageDialog(null, "Opção invalida!, verifique a digitação e tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
