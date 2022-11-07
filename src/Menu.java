@@ -141,8 +141,10 @@ public class Menu {
 				GerenciadorCompras.ultimasDezCompras();
 				break;
 			case 9:
+				GerenciadorCompras.compraMaisCara();
 				break;
 			case 10:
+				GerenciadorCompras.compraMaisBarata();
 				break;
 			case 11:
 				break;
@@ -156,90 +158,6 @@ public class Menu {
 		}while(auxSubmenuRelatorios != 0);
 	}
 	
-	/*public static void mostraClientesQueComecamPorUmaSequenciaDeCaracteres(ArrayList<PessoaFisica> arrayOriginalPessoaFisica, ArrayList<PessoaJuridica> arrayOriginalPessoaJuridica) {
-		// Pergunta a sequencia de caracteres para o usuario
-		String sequenciaCaracteres = JOptionPane.showInputDialog(null, "Qual sequência de caracteres você deseja buscar?"
-				, "Clientes que possuem o nome iniciado por uma determinada sequência de caracteres",
-				JOptionPane.QUESTION_MESSAGE);
-		
-		ArrayList<PessoaFisica> ArrayPessoasFisicas = new ArrayList();
-		ArrayList<PessoaJuridica> ArrayPessoasJuridicas = new ArrayList();
-		// Procura ocorrencias de pessoas fisicas com nomes começando a partir da sequencia definida pelo usuario e coloca em uma array;
-		for(PessoaFisica pessoaFisica: arrayOriginalPessoaFisica) {
-			if(pessoaFisica.getNome().indexOf(sequenciaCaracteres) == 0){
-				ArrayPessoasFisicas.add(pessoaFisica);
-			}
-		}
-		// Procura ocorrencias de pessoas juridicas com nomes começando a partir da sequencia definida pelo usuario e coloca em uma array;
-		for(PessoaJuridica pessoaJuridica: arrayOriginalPessoaJuridica) {
-			if(pessoaJuridica.getNome().indexOf(sequenciaCaracteres) == 0){
-				ArrayPessoasJuridicas.add(pessoaJuridica);
-			}
-		}
-		// Mostra as informações que foram coletadas na array.
-		String infos = "Pessoas fisicas: ";
-		for(PessoaFisica pessoaFisica: ArrayPessoasFisicas) {
-			infos += pessoaFisica.paraString();
-		}
-		infos += "\nPessoas juridicas: ";
-		for(PessoaJuridica pessoaJuridica: ArrayPessoasJuridicas) {
-			infos += pessoaJuridica.paraString();
-		}
-		
-		
-		JOptionPane.showMessageDialog(null, infos, "Relação de todos os clientes iniciados pela sequencia de caracteres: " + sequenciaCaracteres, JOptionPane.INFORMATION_MESSAGE);
-	}//case 1
-	public static void relacaoProdutos(ArrayList<Produtos> arrayOriginalProdutos, ArrayList<Pereciveis> arrayOriginalPereciveis) {
-		String infos="";
-		ArrayList<Produtos> ArrayProdutos = new ArrayList();
-		ArrayList<Pereciveis> ArrayPereciveis = new ArrayList();
-		
-		infos = "Produtos não pereciveis: ";
-		for(Produtos produtos: arrayOriginalProdutos) {
-			ArrayProdutos.add(produtos);
-		}
-		
-		infos += "\nProdutos pereciveis: ";
-		for(Pereciveis pereciveis: arrayOriginalPereciveis) {
-			ArrayProdutos.add(pereciveis);
-		}
-	}//case 2
-	public static void buscaProdutoPeloNome(ArrayList<Produtos> arrayOriginalProdutos, ArrayList<Pereciveis> arrayOriginalPereciveis){
-	String infos="";
-	// Pergunta o nome do produto para o usuario
-	String nomeProduto = JOptionPane.showInputDialog(null, "Qual o nome do produto que você deseja buscar?","Busca de produto por nome",
-			JOptionPane.QUESTION_MESSAGE);
-	
-	ArrayList<Produtos> ArrayProdutos = new ArrayList();
-	ArrayList<Pereciveis> ArrayPereciveis = new ArrayList();
-	
-		for(Produtos produtos: arrayOriginalProdutos) {
-			infos = "Produtos não pereciveis: ";
-			if(produtos.getNomeproduto().indexOf(nomeProduto) == 0){
-				ArrayProdutos.add(produtos);
-			}
-		}
-		for(Pereciveis pereciveis: arrayOriginalPereciveis) {
-			infos += "\nProdutos pereciveis: ";
-			if(pereciveis.getNomeproduto().indexOf(nomeProduto) == 0){
-				ArrayProdutos.add(pereciveis);
-				
-			}
-		}
-		//Mostra as informações que foram coletadas na array.
-		infos = "Produtos localizados: ";
-		for(Produtos produtos: ArrayProdutos){
-			infos += produtos.getNomeproduto();
-		}
-
-		JOptionPane.showMessageDialog(null, infos, "Relação de todos os clientes iniciados pela sequencia de caracteres: " + nomeProduto, JOptionPane.INFORMATION_MESSAGE);
-	}//case 3
-	public static void infoCompraMaisCara(){
-		
-	}//case 9
-	public static void infoCompraMaisBarata(){
-		
-	}//case 10*/
 	public static String obtemInformacaoeVerificaRepeticaoCliente(String atributo, String mensagem, GerenciaCliente GerenciadorClientes) {
 		boolean permissaoParaContinuar = true;
 		do{

@@ -1,33 +1,33 @@
 InicioCompra
-Laura
-21398071897
+Lucas
+cpfzao
 1
-4.0
-2022-11-04
+17085.0
+2022-11-07
 ItemCompra
-Laranja
-4
-1.0
-4.0
+arroz
+321
+23.0
+7383.0
+ItemCompra
+feijao
+231
+42.0
+9702.0
 Total pago
-4.0
+17085.0
 
 InicioCompra
-emerson junior
-cnpj
-12
-2300.0
-2022-11-04
+Jorge
+4934839398
+2
+2300000.0
+2022-11-07
 ItemCompra
-Faca
-10
-200.0
-2000.0
-ItemCompra
-Garfo
-10
-30.0
-300.0
+arroz
+100000
+23.0
+2300000.0
 Total pago
-2300.0
+0.0
 

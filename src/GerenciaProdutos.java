@@ -1,11 +1,10 @@
-import java.io.*;
+import java.io.*;  // Import all the java.io library
 import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 
 public class GerenciaProdutos {
-	@SuppressWarnings("unused")
 	private ArrayList<Produtos> vecProdutos;
 	private ArrayList<Pereciveis>vecPereciveis;
 

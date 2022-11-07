@@ -366,6 +366,44 @@ public void cadastraCompra(ArrayList<PessoaFisica>vecPessoaFisica, ArrayList<Pes
 
 		}
 	}//case 8
+	public void compraMaisCara() {
+		String infos = "";
+		boolean x = false;
+		ArrayList<Compras> ArrayCompra = new ArrayList();
+		double compraMaisCara = this.vecCompra.get(0).getValorTotalCompra();
+        for (int i=0; i<this.vecCompra.size();i++) {
+            if(compraMaisCara<this.vecCompra.get(i).getValorTotalCompra()) {
+            ArrayCompra.add(this.vecCompra.get(i));
+            x=true;
+            }
+        }
+        if(x==false) {
+            ArrayCompra.add(this.vecCompra.get(0));
+        }
+        for (Compras compra: ArrayCompra) {
+            infos += compra.paraString()+"\n";
+        }
+        JOptionPane.showMessageDialog(null, infos, "compra Mais Cara", JOptionPane.INFORMATION_MESSAGE);
+	}//case 9
+	public void compraMaisBarata() {
+		String infos = "";
+		boolean x = false;
+		ArrayList<Compras> ArrayCompra = new ArrayList();
+		double compraMaisBarata = this.vecCompra.get(0).getValorTotalCompra();
+        for (int i=0; i<this.vecCompra.size();i++) {
+            if(compraMaisBarata>this.vecCompra.get(i).getValorTotalCompra()) {
+            ArrayCompra.add(this.vecCompra.get(i));
+            x=true;
+            }
+        }
+        if(x==false) {
+            ArrayCompra.add(this.vecCompra.get(0));
+        }
+        for (Compras compra: ArrayCompra) {
+            infos += compra.paraString()+"\n";
+        }
+        JOptionPane.showMessageDialog(null, infos, "compra Mais Barata", JOptionPane.INFORMATION_MESSAGE);
+	}//case 10
 }//class
 
 
