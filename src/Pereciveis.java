@@ -28,11 +28,11 @@ public class Pereciveis extends Produtos {
 	}
 	public String paraString() {
 		String info="";
-		info += "\n"+ getCodigo() + "\n";
-		info += getNomeproduto() + "\n";
-		info+= getDescricao() + "\n";
-		info += getPreco() + "\n";
-		info += datadevalidade + "\n" ;
+		info += "Codigo: " + getCodigo() + "\n";
+		info += "Nome do produto: " +  getNomeproduto() + "\n";
+		info += "Descrição do produto: " + getDescricao() + "\n";
+		info += "Preço: " + getPreco() + "\n";
+		info +=  "Data de validade: "+ datadevalidade + "\n" ;
 		return info;
 	}
 }

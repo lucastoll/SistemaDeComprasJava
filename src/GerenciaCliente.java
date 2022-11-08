@@ -42,7 +42,7 @@ public class GerenciaCliente {
 		  System.out.println("Arquivo criado: " + arquivoClientes.getName());
 		} 
 		else {
-		  System.out.println("Arquivo já existe.");
+		  System.out.println("Arquivo já existe. (Clientes)");
 		}
 		
 		FileReader fr = new FileReader(arquivoClientes);

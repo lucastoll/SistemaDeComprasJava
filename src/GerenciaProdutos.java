@@ -35,7 +35,7 @@ public class GerenciaProdutos {
 			  System.out.println("Arquivo criado: " + arquivoProduto.getName());
 			} 
 			else {
-			  System.out.println("Arquivo já existe.");
+			  System.out.println("Arquivo já existe. (Produtos)");
 			}
 		FileReader fr = new FileReader(arquivoProduto);
 		BufferedReader br = new BufferedReader(fr);
@@ -142,7 +142,6 @@ public class GerenciaProdutos {
 		
 	}
 	public void relacaoProdutos () {
-
 		ArrayList<Produtos> ArrayProdutos = new ArrayList();
 		ArrayList<Pereciveis> ArrayPereciveis = new ArrayList();
 		// Procura ocorrencias de pessoas fisicas com nomes começando a partir da sequencia definida pelo usuario e coloca em uma array;
@@ -154,22 +153,31 @@ public class GerenciaProdutos {
 			ArrayPereciveis.add(pereciveis);
 		}
 		// Mostra as informações que foram coletadas na array.
-		String infos = "Não pereciveis: \n";
+		String infos = "";
 		for(Produtos produtos: ArrayProdutos) {
+			infos = "Não perecivel\n\n";
 			infos += produtos.paraString();
+			JOptionPane.showMessageDialog(null, infos, "Relação de todos os produtos: ", JOptionPane.INFORMATION_MESSAGE);
 		}
-		infos += "\nPereciveis: ";
+		infos = "";
 		for(Pereciveis pereciveis: ArrayPereciveis) {
+			infos = "Perecivel\n\n";
 			infos += pereciveis.paraString();
+			JOptionPane.showMessageDialog(null, infos, "Relação de todos os produtos: ", JOptionPane.INFORMATION_MESSAGE);
 		}
 		
 		
-		JOptionPane.showMessageDialog(null, infos, "Relação de todos os produtos: ", JOptionPane.INFORMATION_MESSAGE);
 	}//case 2
 	public void buscaProdutoPeloNome(){
-		String infos="";
+		String infos="\nProdutos disponíveis: ";
+		for(Produtos produtos: this.vecProdutos) {
+			infos += "\n" + produtos.getNomeproduto();
+		}
+		for(Pereciveis pereciveis: this.vecPereciveis) {
+			infos += "\n"+ pereciveis.getNomeproduto();
+		}
 		// Pergunta o nome do produto para o usuario
-		String nomeProduto = JOptionPane.showInputDialog(null, "Qual o nome do produto que você deseja buscar?","Busca de produto pelo nome",
+		String nomeProduto = JOptionPane.showInputDialog(null, "Qual o nome do produto que você deseja buscar?" + infos,"Busca de produto pelo nome",
 				JOptionPane.QUESTION_MESSAGE);
 		
 		ArrayList<Produtos> ArrayProdutos = new ArrayList();
@@ -177,26 +185,26 @@ public class GerenciaProdutos {
 		
 		for(Produtos produtos: this.vecProdutos) {
 			if(produtos.getNomeproduto().indexOf(nomeProduto) == 0){
-			ArrayProdutos.add(produtos);
+				ArrayProdutos.add(produtos);
 			}
 		}
 		for(Pereciveis pereciveis: this.vecPereciveis) {
 			if(pereciveis.getNomeproduto().indexOf(nomeProduto) == 0){
-				ArrayPereciveis.add(pereciveis);
-				
+				ArrayPereciveis.add(pereciveis);	
 			}
 		}
+		infos = "";
 		// Mostra as informações que foram coletadas na array.
-				infos += "Não pereciveis: \n";
-				for(Produtos produtos: ArrayProdutos) {
-					infos += produtos.paraString();
-				}
-				infos += "\nPereciveis: ";
-				for(Pereciveis pereciveis: ArrayPereciveis) {
-					infos += pereciveis.paraString();
-				}
+		infos += "Não pereciveis: \n\n";
+		for(Produtos produtos: ArrayProdutos) {
+			infos += produtos.paraString();
+		}
+		infos += "Pereciveis: \n\n";
+		for(Pereciveis pereciveis: ArrayPereciveis) {
+			infos += pereciveis.paraString();
+		}
 
-		JOptionPane.showMessageDialog(null, infos, "Busca de Produtos pelo nome" + nomeProduto, JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, infos, "Busca de Produtos pelo nome " + nomeProduto, JOptionPane.INFORMATION_MESSAGE);
 	}//case 3
 	public void relacaoProdutosVencidos() {
 		String infos="";
@@ -207,7 +215,7 @@ public class GerenciaProdutos {
 			if(pereciveis.vencimento() == true)
 			ArrayPereciveis.add(pereciveis);
 		}
-		infos += "\nVencidos: ";
+		infos += "Produtos vencidos\n\n";
 		for(Pereciveis pereciveis: ArrayPereciveis) {
 			infos += pereciveis.paraString();
 		}

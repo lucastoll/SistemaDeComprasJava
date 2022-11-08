@@ -99,7 +99,7 @@ public void leCompra() throws IOException {
 		  System.out.println("Arquivo criado: " + arquivoCompra.getName());
 	} 
 	else {
-		  System.out.println("Arquivo já existe.");
+		  System.out.println("Arquivo já existe. (Compras)");
 	}
 		FileReader fr = new FileReader(arquivoCompra);
 		BufferedReader br = new BufferedReader(fr);
@@ -107,12 +107,12 @@ public void leCompra() throws IOException {
 			String linha1 = br.readLine();		
 			if(linha1.equals("InicioCompra")) {
 				nomeCliente = br.readLine();
-				System.out.println(nomeCliente);
 				identidade = br.readLine();
 				identificador = Integer.parseInt(br.readLine());
 				valorTotalCompra = Float.parseFloat(br.readLine());
 				data = LocalDate.parse(br.readLine());
 				linha2=br.readLine();
+				vecItensCompra= new ArrayList<ItensCompra>();
 				do {
 					nomeProduto= br.readLine();
 					quantidade=Integer.parseInt(br.readLine());
@@ -315,25 +315,25 @@ public void cadastraCompra(ArrayList<PessoaFisica>vecPessoaFisica, ArrayList<Pes
 		}
 	}//case 5
 	public void buscaCompraPeloNumero() {
-		String infos = "";
+		String infos = "IDS disponíveis: ";
 		
-		String idCompra = JOptionPane.showInputDialog(null, "Qual o id da compra que deseja?"
+		for(Compras compra: this.vecCompra) {
+			infos += "\n" + compra.getIdentificador();
+		}
+		
+		String idCompra = JOptionPane.showInputDialog(null, infos
 				, "Buscar Compra pelo número",
 				JOptionPane.QUESTION_MESSAGE);
 		
-		ArrayList<Compras> ArrayCompra = new ArrayList();
-		
-		for(Compras compra: this.vecCompra)
+		infos = "";
+		for(Compras compra: this.vecCompra) {
 			if(compra.getIdentificador() == Integer.parseInt(idCompra)){
-				ArrayCompra.add(compra);
-			}
-		// Mostra as informações que foram coletadas na array.
-		infos += "Compras pelo id: "+ idCompra + "\n";
-		for(Compras compra: ArrayCompra) {
-			infos += compra.paraString();
+				infos += compra.paraString();
+			}			
 		}
-		JOptionPane.showMessageDialog(null, infos, "Mostrando todas as Compras pelo id"+ idCompra, JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, infos, "Compra com ID: "+ idCompra, JOptionPane.INFORMATION_MESSAGE);
 	}//case 6
+	
 	public void relacaoComprasNaoPagas() {
 		String infos = "";
 		
