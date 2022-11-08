@@ -18,7 +18,7 @@ public class Menu {
 			auxMenu = Integer.parseInt(JOptionPane.showInputDialog(null,
                     "Digite uma opção: \n"
                     + "1 - Cadastro de clientes\n"
-                    + "2 - Deletar cliente pelo CPF\n"
+                    + "2 - Deletar cliente pelo CPF ou CNPJ\n"
                     + "3 - Deletar cliente pelo nome\n"
                     + "4 - Cadastro de produtos\n"
                     + "5 - Efetuação de uma compra\n"
