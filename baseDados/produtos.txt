@@ -1,37 +1,11 @@
 Produto
-123
-feijao
-gostosinho
-34.0
+1
+Faca
+Afiada e serrilhada
+100.0
 Perecivel
-123
-arroz
-soltinho e branquinho
-23.0
-2023-05-23
-Perecivel
-423
-feijao
-gosto-gostozinho
-25.0
-2023-03-23
-Perecivel
-243
-feijao
-fodase
-42.0
-2021-11-04
-Produto
 2
-faca
-faca afiada
-4
-
-Perecivel
-6
-brocolis
-brocolis gostoso
-55
-2022-03-10
-
-
+Feijao
+Broto Legal
+25.0
+2022-10-01
