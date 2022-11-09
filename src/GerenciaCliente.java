@@ -280,7 +280,6 @@ public class GerenciaCliente {
 		ArrayList<PessoaJuridica> ArrayPessoasJuridicas = new ArrayList();
 		// Procura ocorrencias de pessoas fisicas com nomes começando a partir da sequencia definida pelo usuario e coloca em uma array;
 		for(PessoaFisica pessoaFisica: this.vecPessoaFisica) {
-			System.out.println(pessoaFisica.getNome().indexOf(sequenciaCaracteres) + pessoaFisica.getNome());
 			if(pessoaFisica.getNome().indexOf(sequenciaCaracteres) == 0){
 				ArrayPessoasFisicas.add(pessoaFisica);
 			}
@@ -296,7 +295,7 @@ public class GerenciaCliente {
 		for(PessoaFisica pessoaFisica: ArrayPessoasFisicas) {
 			infos += pessoaFisica.paraString();
 		}
-		infos += "\nPessoas juridicas: ";
+		infos += "\n\nPessoas juridicas: ";
 		for(PessoaJuridica pessoaJuridica: ArrayPessoasJuridicas) {
 			infos += pessoaJuridica.paraString();
 		}

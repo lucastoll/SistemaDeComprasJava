@@ -6,6 +6,8 @@ import java.time.LocalDate;
 public class Menu {
 	public static void main(String[] args) throws IOException {
 		int auxMenu = 0;
+
+
 		GerenciaCliente GerenciadorClientes = new GerenciaCliente();
 		GerenciaProdutos GerenciadorProdutos = new GerenciaProdutos();
 		GerenciaCompra GerenciadorCompras = new GerenciaCompra();
@@ -51,7 +53,8 @@ public class Menu {
 				GerenciadorClientes.excluirClientePorNome();
 				break;
 			case 4:
-				GerenciadorProdutos.cadastraProdutos();
+				ArrayList<String> ArrayInfosProduto = new ArrayList<String>(obtemInformacoesProduto());
+				GerenciadorProdutos.cadastraProdutos(ArrayInfosProduto);
 				break;
 			case 5: 
 				GerenciadorCompras.cadastraCompra(GerenciadorClientes.getVecPessoaFisica(), GerenciadorClientes.getVecPessoaJuridica(), GerenciadorProdutos.getVecProdutos(), GerenciadorProdutos.getVecPereciveis());
@@ -71,6 +74,109 @@ public class Menu {
 				break;
 			}
 		}while(auxMenu != 0);
+	}
+	
+	public static ArrayList<String> obtemInformacoesProduto() {
+		   int controlador = 0;
+		   String codigo="", preco="";
+		   ArrayList<String> ArrayInfosProduto = new ArrayList<String>();
+
+	       do {  
+			controlador = Integer.parseInt(JOptionPane.showInputDialog(null,
+					"1 - Não perecível\n"
+					+ "2 - Perecível",
+	                "Cadastro de produtos - tipo produto",
+	                JOptionPane.INFORMATION_MESSAGE));
+			if (controlador < 1 || controlador > 2) {
+				JOptionPane.showMessageDialog(null, "Digite um valor correto.", "Erro", JOptionPane.ERROR_MESSAGE);
+			}
+	       }while (controlador < 1 || controlador > 2);
+			
+	       boolean permissaoParaContinuar;
+			do {
+				permissaoParaContinuar = false;
+				codigo = JOptionPane.showInputDialog("Digite o código do produto: ");
+				try {
+					Integer.parseInt(codigo);
+					permissaoParaContinuar = true;
+				}
+				catch(Exception e){
+					JOptionPane.showMessageDialog(null, "Digite um valor numerico.", "Erro", JOptionPane.ERROR_MESSAGE);
+				}
+			}while(!permissaoParaContinuar);
+	       
+			String nomeProduto = JOptionPane.showInputDialog("Digite o nome do produto: ");
+			String descricao = JOptionPane.showInputDialog("Digite a descrição: ");
+			
+			do {
+				permissaoParaContinuar = false;
+				preco = JOptionPane.showInputDialog("Digite o preço: ");
+				try {
+					Float.parseFloat(preco);
+					permissaoParaContinuar = true;
+				}
+				catch(Exception e){
+					JOptionPane.showMessageDialog(null, "Digite um valor numerico.", "Erro", JOptionPane.ERROR_MESSAGE);
+				}
+			}while(!permissaoParaContinuar);
+			
+			
+			if(controlador == 1) {
+				ArrayInfosProduto.add("Produto");
+				ArrayInfosProduto.add(codigo);
+				ArrayInfosProduto.add(nomeProduto);
+				ArrayInfosProduto.add(descricao);
+				ArrayInfosProduto.add(preco);
+
+			}
+			else if(controlador==2) {
+				int dia;
+				int mes;
+				
+				ArrayInfosProduto.add("Perecivel");
+				ArrayInfosProduto.add(codigo);
+				ArrayInfosProduto.add(nomeProduto);
+				ArrayInfosProduto.add(descricao);
+				ArrayInfosProduto.add(preco);
+							
+				do {
+					dia = Integer.parseInt(JOptionPane.showInputDialog(null,
+							"Digite o dia","Data de validade"
+			                ,
+			                JOptionPane.INFORMATION_MESSAGE));
+					if (dia <=0 || dia >31) {
+						JOptionPane.showMessageDialog(null, "Dia inválido", "Erro!", JOptionPane.ERROR_MESSAGE);
+					}
+				}while (dia <=0 || dia >31);
+				do {
+					 mes = Integer.parseInt(JOptionPane.showInputDialog(null,
+							"Digite o mes","Data de validade"
+			                ,
+			                JOptionPane.INFORMATION_MESSAGE));
+					if (mes <=0 || mes>12) {
+						JOptionPane.showMessageDialog(null, "Mês inválido", "Erro!", JOptionPane.ERROR_MESSAGE);
+					}
+				}while (mes <=0 || mes >12);
+				
+				int ano = Integer.parseInt(JOptionPane.showInputDialog(null,
+						"Digite o ano","Data de validade"
+		                ,
+		                JOptionPane.INFORMATION_MESSAGE));
+					if(dia < 10 && mes<10) {
+						ArrayInfosProduto.add(ano+"-"+"0"+mes+"-"+"0"+dia+"\n");
+					}
+					else if (mes <10){
+						ArrayInfosProduto.add(ano+"-"+"0"+mes+"-"+dia+"\n");
+					}
+					else if (dia <10) {
+						ArrayInfosProduto.add(ano+"-"+mes+"-"+"0"+dia+"\n");
+					}
+					else {
+						ArrayInfosProduto.add(ano+"-"+mes+"-"+dia+"\n");
+					}
+			}
+			
+			return ArrayInfosProduto;
 	}
 	
 	public static String obtemIDCompraNaoPaga(GerenciaCompra GerenciadorCompras) {
@@ -158,7 +264,8 @@ public class Menu {
 		}while(auxSubmenuRelatorios != 0);
 	}
 	
-	public static String obtemInformacaoeVerificaRepeticaoCliente(String atributo, String mensagem, GerenciaCliente GerenciadorClientes) {
+	public static String obtemInformacaoeVerificaRepeticaoCliente(String mensagem, GerenciaCliente GerenciadorClientes) {
+		String atributo = "";
 		boolean permissaoParaContinuar = true;
 		do{
 			permissaoParaContinuar = true;
@@ -193,15 +300,18 @@ public class Menu {
 		//Função que pergunta as informações pro cliente e retorna em uma array
 		ArrayList<String> ArrayInfosCliente = new ArrayList<String>();
 		boolean permissaoParaContinuar;
-		String nome = "", rua = "", numero = "", bairro = "", cep = "", cidade = "", estado = "";
+		String nome = obtemInformacaoeVerificaRepeticaoCliente("Nome: ", GerenciadorClientes),
+				rua = obtemInformacaoeVerificaRepeticaoCliente("Rua: ", GerenciadorClientes),
+				bairro = obtemInformacaoeVerificaRepeticaoCliente("Bairro: ", GerenciadorClientes),
+				cep = obtemInformacaoeVerificaRepeticaoCliente("CEP: ", GerenciadorClientes),
+				cidade = obtemInformacaoeVerificaRepeticaoCliente("Cidade: ", GerenciadorClientes),
+				estado = obtemInformacaoeVerificaRepeticaoCliente("Estado: ", GerenciadorClientes),
+				numero = "";
 
-		ArrayInfosCliente.add(obtemInformacaoeVerificaRepeticaoCliente(nome, "Nome: ", GerenciadorClientes));
-		ArrayInfosCliente.add(obtemInformacaoeVerificaRepeticaoCliente(rua, "Rua: ", GerenciadorClientes));
-		
 		// Verificação se o usuario digitou um valor numerico
 		do {
 			permissaoParaContinuar = false;
-			numero = obtemInformacaoeVerificaRepeticaoCliente(numero, "Numero: ", GerenciadorClientes);
+			numero = obtemInformacaoeVerificaRepeticaoCliente("Numero: ", GerenciadorClientes);
 			try {
 				Integer.parseInt(numero);
 				permissaoParaContinuar = true;
@@ -210,12 +320,7 @@ public class Menu {
 				JOptionPane.showMessageDialog(null, "Digite um valor numerico.", "Erro", JOptionPane.ERROR_MESSAGE);
 			}
 		}while(!permissaoParaContinuar);
-		ArrayInfosCliente.add(numero);
 			
-		ArrayInfosCliente.add(obtemInformacaoeVerificaRepeticaoCliente(bairro, "Bairro: ", GerenciadorClientes));
-		ArrayInfosCliente.add(obtemInformacaoeVerificaRepeticaoCliente(cep, "CEP: ", GerenciadorClientes));
-		ArrayInfosCliente.add(obtemInformacaoeVerificaRepeticaoCliente(cidade, "Cidade: ", GerenciadorClientes));
-		ArrayInfosCliente.add(obtemInformacaoeVerificaRepeticaoCliente(estado, "Estado: ", GerenciadorClientes));
 
 		int escolhaTipoDeCliente;
 		do {
@@ -226,14 +331,13 @@ public class Menu {
 	                JOptionPane.INFORMATION_MESSAGE));
 			
 			if(escolhaTipoDeCliente == 1) {
-				String cpf = "", numeroMaximoDeParcelas = "";
+				String cpf = obtemInformacaoeVerificaRepeticaoCliente("CPF: ", GerenciadorClientes), 
+					numeroMaximoDeParcelas = "";
 
-				ArrayInfosCliente.add(0, "fisica"); //adiciona na primeira posicao da array (pra linha servir como identificador no arquivo)
-				ArrayInfosCliente.add(obtemInformacaoeVerificaRepeticaoCliente(cpf, "CPF: ", GerenciadorClientes));
 				// Verificação se o usuario digitou um valor numerico
 				do {
 					permissaoParaContinuar = false;
-					numeroMaximoDeParcelas = obtemInformacaoeVerificaRepeticaoCliente(numeroMaximoDeParcelas, "Numero maximo de parcelas permitidas em uma compra do cliente: ", GerenciadorClientes);
+					numeroMaximoDeParcelas = obtemInformacaoeVerificaRepeticaoCliente("Numero maximo de parcelas permitidas em uma compra do cliente: ", GerenciadorClientes);
 					try {
 						Integer.parseInt(numeroMaximoDeParcelas);
 						permissaoParaContinuar = true;
@@ -242,19 +346,27 @@ public class Menu {
 						JOptionPane.showMessageDialog(null, "Digite um valor numerico.", "Erro", JOptionPane.ERROR_MESSAGE);
 					}
 				}while(!permissaoParaContinuar);
+				
+				ArrayInfosCliente.add(0, "fisica"); //adiciona na primeira posicao da array (pra linha servir como identificador no arquivo)
+				ArrayInfosCliente.add(nome);
+				ArrayInfosCliente.add(rua);
+				ArrayInfosCliente.add(numero);
+				ArrayInfosCliente.add(bairro);
+				ArrayInfosCliente.add(cep);
+				ArrayInfosCliente.add(cidade);
+				ArrayInfosCliente.add(estado);
+				ArrayInfosCliente.add(cpf);
 				ArrayInfosCliente.add(numeroMaximoDeParcelas);
 			}
 			else if(escolhaTipoDeCliente == 2) {
-				String cnpj = "", razaoSocial = "", prazoMaximo = "";
-				
-				ArrayInfosCliente.add(0, "juridica"); //adiciona na primeira posicao da array (pra linha servir como identificador no arquivo)
-				ArrayInfosCliente.add(obtemInformacaoeVerificaRepeticaoCliente(cnpj, "CNPJ: ", GerenciadorClientes));
-				ArrayInfosCliente.add(obtemInformacaoeVerificaRepeticaoCliente(razaoSocial, "Razão social: ", GerenciadorClientes));
+				String cnpj = obtemInformacaoeVerificaRepeticaoCliente("CNPJ: ", GerenciadorClientes),
+						razaoSocial = obtemInformacaoeVerificaRepeticaoCliente("Razão social: ", GerenciadorClientes),
+					    prazoMaximo = "";
 				
 				// Verificação se o usuario digitou um valor numerico
 				do {
 					permissaoParaContinuar = false;
-					prazoMaximo = obtemInformacaoeVerificaRepeticaoCliente(prazoMaximo, "Prazo maximo: ", GerenciadorClientes);
+					prazoMaximo = obtemInformacaoeVerificaRepeticaoCliente("Prazo maximo: ", GerenciadorClientes);
 					try {
 						Integer.parseInt(prazoMaximo);
 						permissaoParaContinuar = true;
@@ -263,8 +375,18 @@ public class Menu {
 						JOptionPane.showMessageDialog(null, "Digite um valor numerico.", "Erro", JOptionPane.ERROR_MESSAGE);
 					}
 				}while(!permissaoParaContinuar);
-				ArrayInfosCliente.add(prazoMaximo);
 				
+				ArrayInfosCliente.add(0, "juridica"); //adiciona na primeira posicao da array (pra linha servir como identificador no arquivo)
+				ArrayInfosCliente.add(nome);
+				ArrayInfosCliente.add(rua);
+				ArrayInfosCliente.add(numero);
+				ArrayInfosCliente.add(bairro);
+				ArrayInfosCliente.add(cep);
+				ArrayInfosCliente.add(cidade);
+				ArrayInfosCliente.add(estado);
+				ArrayInfosCliente.add(cnpj);
+				ArrayInfosCliente.add(razaoSocial);
+				ArrayInfosCliente.add(prazoMaximo);
 			}
 			else {
 				JOptionPane.showMessageDialog(null, "Opção invalida!, verifique a digitação e tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);

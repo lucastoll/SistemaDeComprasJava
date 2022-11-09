@@ -234,7 +234,12 @@ public void cadastraCompra(ArrayList<PessoaFisica>vecPessoaFisica, ArrayList<Pes
 	boolean mesmoIdentificador = false;
 	do {
 		mesmoIdentificador = false;
-		identificador = Integer.parseInt(JOptionPane.showInputDialog(null,"Digite o identificador da compra: ", JOptionPane.INFORMATION_MESSAGE));
+		String infos = "ID's indisponíveis: \n";
+		for(Compras compra: this.vecCompra) {
+			infos += compra.getIdentificador() + "\n";
+		}
+		
+		identificador = Integer.parseInt(JOptionPane.showInputDialog(null, infos + "Digite o identificador da compra: ", JOptionPane.INFORMATION_MESSAGE));
 		 for (Compras compra: this.vecCompra) {
 			 if(compra.getIdentificador()==identificador) {
 					mesmoIdentificador = true;

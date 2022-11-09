@@ -67,80 +67,28 @@ public class GerenciaProdutos {
 		br.close();
 		fr.close();
 	}
-	public void cadastraProdutos() throws IOException {
-		int controlador = 0;
-       do {  
-		controlador = Integer.parseInt(JOptionPane.showInputDialog(null,
-				"1 - Não perecível\n"
-				+ "2 - Perecível",
-                "Cadastro de produtos - tipo produto",
-                JOptionPane.INFORMATION_MESSAGE));
-		if (controlador < 1 || controlador > 2) {
-			JOptionPane.showMessageDialog(null, "Digite um valor correto.", "Erro", JOptionPane.ERROR_MESSAGE);
-		}
-       }while (controlador < 1 || controlador > 2);
 		
-		int codigo = Integer.parseInt(JOptionPane.showInputDialog("Digite o código do produto: "));
-		String nomeProduto = JOptionPane.showInputDialog("Digite o nome do produto: ");
-		String descricao = JOptionPane.showInputDialog("Digite a descrição: ");
-		float preco = Float.parseFloat(JOptionPane.showInputDialog("Digite o preço: "));
-		File arquivoProduto = new File("./baseDados/produtos.txt");
-		FileWriter fileWriter = new FileWriter(arquivoProduto, true);
-		if (controlador ==1) {
-		fileWriter.write("Produto\n");
-		fileWriter.write(codigo + "\n");
-		fileWriter.write(nomeProduto + "\n");
-		fileWriter.write(descricao + "\n");
-		fileWriter.write(preco + "\n");
-		fileWriter.close();
+	public void cadastraProdutos(ArrayList<String> ArrayInfoProdutos) throws IOException {
+		// Função que recebe uma array de dados e cadastra no final do arquivo
+		File arquivoProdutos = new File("./baseDados/produtos.txt");
+
+		if(arquivoProdutos.createNewFile()) {
+		  System.out.println("Arquivo criado: " + arquivoProdutos.getName());
+		} 
+		else {
+		  System.out.println("Arquivo ja existe.");
 		}
-		else if(controlador==2) {
-			int dia;
-			int mes;
-			do {
-				dia = Integer.parseInt(JOptionPane.showInputDialog(null,
-						"Digite o dia","Data de validade"
-		                ,
-		                JOptionPane.INFORMATION_MESSAGE));
-				if (dia <=0 || dia >31) {
-					JOptionPane.showMessageDialog(null, "Dia inválido", "Erro!", JOptionPane.ERROR_MESSAGE);
-				}
-			}while (dia <=0 || dia >31);
-			do {
-				 mes = Integer.parseInt(JOptionPane.showInputDialog(null,
-						"Digite o mes","Data de validade"
-		                ,
-		                JOptionPane.INFORMATION_MESSAGE));
-				if (mes <=0 || mes>12) {
-					JOptionPane.showMessageDialog(null, "Mês inválido", "Erro!", JOptionPane.ERROR_MESSAGE);
-				}
-			}while (mes <=0 || mes >12);
 			
-			int ano = Integer.parseInt(JOptionPane.showInputDialog(null,
-					"Digite o ano","Data de validade"
-	                ,
-	                JOptionPane.INFORMATION_MESSAGE));
-				fileWriter.write("Perecivel\n");
-				fileWriter.write(codigo + "\n");
-				fileWriter.write(nomeProduto + "\n");
-				fileWriter.write(descricao + "\n");
-				fileWriter.write(preco + "\n");
-				if(dia < 10 && mes<10) {
-					fileWriter.write(ano+"-"+"0"+mes+"-"+"0"+dia+"\n");
-				}
-				else if (mes <10){
-					fileWriter.write(ano+"-"+"0"+mes+"-"+dia+"\n");
-				}
-				else if (dia <10) {
-					fileWriter.write(ano+"-"+mes+"-"+"0"+dia+"\n");
-				}
-				else {
-					fileWriter.write(ano+"-"+mes+"-"+dia+"\n");
-				}
-				fileWriter.close();
-		}
+		FileWriter fileWriter = new FileWriter(arquivoProdutos, true);
 		
+		for(String info: ArrayInfoProdutos) {
+			fileWriter.write(info + "\n");
+		}
+		fileWriter.write("\n");
+
+		fileWriter.close();
 	}
+	
 	public void relacaoProdutos () {
 		ArrayList<Produtos> ArrayProdutos = new ArrayList();
 		ArrayList<Pereciveis> ArrayPereciveis = new ArrayList();

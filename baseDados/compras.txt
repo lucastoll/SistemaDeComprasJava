@@ -28,3 +28,17 @@ feijao
 Total pago
 0.0
 
+InicioCompra
+Laplace
+2424
+4
+92.0
+2022-11-09
+ItemCompra
+arroz
+4
+23.0
+92.0
+Total pago
+0.0
+

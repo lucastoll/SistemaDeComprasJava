@@ -66,3 +66,14 @@ sp
 21398071897
 4
 
+fisica
+Laplace
+rua do marcao
+9
+FODASE
+23
+cidade do laplace
+estado do laplace
+2424
+12
+
