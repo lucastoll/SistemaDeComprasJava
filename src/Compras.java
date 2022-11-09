@@ -67,8 +67,8 @@ public class Compras {
 		infos += "Nome do cliente: " + this.getNomeCliente() + "\n";
 		infos += "ID da compra: " + this.getIdentificador() + "\n";
 		infos += "Documento de identidade do cliente: " + this.getIdentidade() + "\n";
-		infos += "Valor total da compra: " + this.getValorTotalCompra() + "\n";
-		infos += "Valor total pago: " + this.getValorTotalPago() + "\n";
+		infos += "Valor total da compra R$: " + this.getValorTotalCompra() + "\n";
+		infos += "Valor total pago R$: " + this.getValorTotalPago() + "\n";
 		infos += "Data da compra: " + this.getDataCompra() + "\n";
 		infos += "\nItens da compra\n";
 		for(int i = 0; i < this.getVecItensCompra().size(); i++) {

@@ -14,7 +14,7 @@ public class PessoaJuridica extends Cliente{
 
 	@Override
 	public String paraString() {
-		String infos = "\n\n";
+		String infos = "\n";
 		infos += this.getEndereço().paraString();
 		infos += "\nNome: " + this.getNome();
 		infos += "\nData de cadastro: " + this.getDataCadastro();
