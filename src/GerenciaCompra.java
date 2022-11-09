@@ -380,8 +380,6 @@ public void cadastraCompra(ArrayList<PessoaFisica>vecPessoaFisica, ArrayList<Pes
 	        }
 	        JOptionPane.showMessageDialog(null, infos, "Compra mais cara: ", JOptionPane.INFORMATION_MESSAGE);
 		}
-		
-		
 	}//case 9
 	public void compraMaisBarata() {
 		String infos = "";

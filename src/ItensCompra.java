@@ -38,8 +38,8 @@ public class ItensCompra {
 		
 		infos += "\nNome produto: " + this.getNomeProduto() + "\n";
 		infos += "Quantidade: " + this.getQuantidade() + "\n";
-		infos += "Preço unitário: " + this.getPrecoUnitario() + "\n";
-		infos += "Valor total: " + this.valorTotal + "\n";
+		infos += "Preço unitário R$: " + this.getPrecoUnitario() + "\n";
+		infos += "Valor total R$: " + this.valorTotal + "\n";
 		
 		return infos;
 	} 
