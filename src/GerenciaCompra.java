@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -398,6 +399,44 @@ public void cadastraCompra(ArrayList<PessoaFisica>vecPessoaFisica, ArrayList<Pes
 	        JOptionPane.showMessageDialog(null, infos, "Compra mais barata:", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}//case 10
+	public void comprasFeitasUltimosDozeMeses(){
+		String infos = "";
+		LocalDate UltimoDiaMesAnterior, primeiroDiaMesAtual = LocalDate.now();
+		Double somaMes = 0.0;
+		
+		for(int i = 0; i < 12 ; i++){
+			infos = "";
+			somaMes = 0.0;
+			UltimoDiaMesAnterior = LocalDate.now().minusMonths(i + 1).with(TemporalAdjusters.lastDayOfMonth());
+			primeiroDiaMesAtual = LocalDate.now().minusMonths(i - 1).with(TemporalAdjusters.firstDayOfMonth());
+			
+			for (Compras compra: this.vecCompra) {
+				if(compra.getDataCompra().isAfter(UltimoDiaMesAnterior) && compra.getDataCompra().isBefore(primeiroDiaMesAtual)) {
+					somaMes += compra.getValorTotalCompra();
+				}
+			}
+		infos += "Valor total de compras feitas nos mês: " + LocalDate.now().minusMonths(i).getMonth() + "\nR$: " + somaMes;
+			JOptionPane.showMessageDialog(null, infos, "Compra mais barata:", JOptionPane.INFORMATION_MESSAGE);
+		}
+		
+		
+		
+		
+		
+		
+		/*LocalDate ultimosmeses = LocalDate.now().minusMonths(12);
+		 * System.out.println(UltimoDiaMesAnterior + " " + primeiroDiaMesAtual + " " + LocalDate.now().minusMonths(i).getMonthValue());
+		double valorCompraMes = 0;
+		
+		for (Compras compra: this.vecCompra) {
+			if(compra.getDataCompra().isAfter(ultimosmeses)){
+				
+				
+			}
+		}
+		JOptionPane.showMessageDialog(null, infos, "Compras feitas nos ultimos doze meses:", JOptionPane.INFORMATION_MESSAGE);*/
+	}//case 11
+	
 }//class
 
 
