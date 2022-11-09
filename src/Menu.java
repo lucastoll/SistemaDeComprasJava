@@ -253,6 +253,7 @@ public class Menu {
 				GerenciadorCompras.compraMaisBarata();
 				break;
 			case 11:
+				GerenciadorCompras.comprasFeitasUltimosDozeMeses();
 				break;
 			case 0:
 				auxSubmenuRelatorios = 0;

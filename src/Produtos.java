@@ -38,7 +38,7 @@ public class Produtos {
 		info += "Codigo: " + codigo + "\n";
 		info += "Nome do produto: " +  nomeproduto + "\n";
 		info += "Descrição do produto: " + descricao + "\n";
-		info += "Preço: " + preco + "\n";
+		info += "Preço R$: " + preco + "\n";
 		return info;
 	}
 }

@@ -295,7 +295,7 @@ public class GerenciaCliente {
 		for(PessoaFisica pessoaFisica: ArrayPessoasFisicas) {
 			infos += pessoaFisica.paraString();
 		}
-		infos += "\n\nPessoas juridicas: ";
+		infos += "\nPessoas juridicas:";
 		for(PessoaJuridica pessoaJuridica: ArrayPessoasJuridicas) {
 			infos += pessoaJuridica.paraString();
 		}

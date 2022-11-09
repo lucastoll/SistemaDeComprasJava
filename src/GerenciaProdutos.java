@@ -141,18 +141,24 @@ public class GerenciaProdutos {
 				ArrayPereciveis.add(pereciveis);	
 			}
 		}
-		infos = "";
-		// Mostra as informações que foram coletadas na array.
-		infos += "Não pereciveis: \n\n";
-		for(Produtos produtos: ArrayProdutos) {
-			infos += produtos.paraString();
+		if(ArrayProdutos.size()!=0) {
+			infos="";
+			infos += "Não pereciveis: \n";
+			for(Produtos produtos: ArrayProdutos) {
+				infos += produtos.paraString();
+			}
 		}
-		infos += "Pereciveis: \n\n";
-		for(Pereciveis pereciveis: ArrayPereciveis) {
-			infos += pereciveis.paraString();
+		else if(ArrayPereciveis.size()!=0) {
+			infos = "";
+			infos += "Pereciveis: \n";
+			for(Pereciveis pereciveis: ArrayPereciveis) {
+				infos += pereciveis.paraString();
+			}
 		}
+		JOptionPane.showMessageDialog(null, infos, "Busca de Produtos pelo nome: " + nomeProduto, JOptionPane.INFORMATION_MESSAGE);
+		
 
-		JOptionPane.showMessageDialog(null, infos, "Busca de Produtos pelo nome " + nomeProduto, JOptionPane.INFORMATION_MESSAGE);
+		
 	}//case 3
 	public void relacaoProdutosVencidos() {
 		String infos="";
