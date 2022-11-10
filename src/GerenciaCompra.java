@@ -32,58 +32,12 @@ public void efetuaPagamento(String id) throws IOException {
 			
 			do {
 				pagamento = JOptionPane.showInputDialog(null, infos, JOptionPane.QUESTION_MESSAGE);
-			}while(Double.parseDouble(pagamento) <= 0 || Double.parseDouble(pagamento) > compra.getValorTotalCompra() - compra.getValorTotalPago());
+			}while(Float.parseFloat(pagamento) <= 0 || Float.parseFloat(pagamento) > compra.getValorTotalCompra() - compra.getValorTotalPago());
 			
-			alteraTotalPagoNoArquivo(id, pagamento, compra.getValorTotalPago());
+			GerenciaArquivo GerenciadorArquivo = new GerenciaArquivo();
+			GerenciadorArquivo.alteraTotalPagoNoArquivo(id, pagamento, compra.getValorTotalPago());
 		}
 	}
-}
-
-public void alteraTotalPagoNoArquivo(String id, String pagamento, double valorTotalPago) throws IOException{
-	// Abre o arquivo original e cria um arquivo temporario
-	File arquivoOriginal = new File("./baseDados/compras.txt");
-	File arquivoTemporario = new File("./baseDados/comprasTemp.txt");
-	arquivoTemporario.createNewFile();
-	// Declara um reader para o arquivo original e um writer para o temporario
-    BufferedReader bufferedReader = new BufferedReader(new FileReader(arquivoOriginal));
-	FileWriter fileWriter = new FileWriter(arquivoTemporario, false);
-	
-	String linha = "";
-	
-	
-	// este while tem como intuito reescrever todas as linhas do arquivo original no temporario
-	// com exceção da linha do valorTotalPago da compra que está sendo alterada
-	while(bufferedReader.ready()) {
-		linha = bufferedReader.readLine();
-		if(linha.equals(id)) {	
-			// Se a linha for igual ao ID, ler informações até chegar no Total pago
-			// pois abaixo do total pago esta a informação que queremos substituir com esta função
-			while(!linha.equals("Total pago")) {
-				fileWriter.write(linha + "\n");	
-				linha = bufferedReader.readLine();
-			}
-			//Escreve o valor novo e pula uma linha, para o arquivo continuar sendo reescrito porém agora com a linha nova que foi definida no lugar do antigo valorTotalPago
-			fileWriter.write("Total pago\n");
-			fileWriter.write((Double.parseDouble(pagamento) + valorTotalPago) + "\n");
-			bufferedReader.readLine();
-
-			continue;
-		}
-		else { 
-			fileWriter.write(linha + "\n");	
-		}
-	}
-	fileWriter.close(); 
-	bufferedReader.close(); 
-	
-  //Deleta o arquivo original
-  if (!arquivoOriginal.delete()) {
-    System.out.println("Não foi possível deletar o arquivo");
-    return;
-  }
-  //Renomeia o arquivo temporario para o nome do arquivo original
-  if (!arquivoTemporario.renameTo(arquivoOriginal))
-    System.out.println("Não foi possível renomear o arquivo");
 }
 
 
@@ -93,7 +47,7 @@ public void leCompra() throws IOException {
 	int identificador=0,quantidade=0;
 	float valorTotalCompra=0, valorUnitario=0, valorTotalProduto=0, valorTotalPago=0;
 	
-	ArrayList<ItensCompra>vecItensCompra= new ArrayList<ItensCompra>();
+	ArrayList<ItensCompra>vecItensCompra = new ArrayList<ItensCompra>();
 	LocalDate data = null;
 	 File arquivoCompra = new File("./baseDados/compras.txt");
 	if(arquivoCompra.createNewFile()) {
@@ -185,11 +139,11 @@ public void cadastraCompra(ArrayList<PessoaFisica>vecPessoaFisica, ArrayList<Pes
 	do {
 	do {
 		permissaoParaContinuar=true;
-		produtosCadastrados += "NÃO PERECIVEIS \n"; 
+		produtosCadastrados += "NÃO PERECIVEIS \n\n"; 
 		for(Produtos produto: vecProdutos) {	
 			produtosCadastrados += produto.getNomeproduto() + "\n";	
 		}
-		produtosCadastrados += "PERECIVEIS \n"; 
+		produtosCadastrados += "\nPERECIVEIS \n\n"; 
 		for(Pereciveis produto: vecPereciveis) {	
 			produtosCadastrados += produto.getNomeproduto()+ "\n";	
 		}
@@ -351,9 +305,9 @@ public void cadastraCompra(ArrayList<PessoaFisica>vecPessoaFisica, ArrayList<Pes
 			}
 		infos += "Compras pelo id: \n";
 		for(Compras compra: ArrayCompra) {
-			infos += compra.paraString();
+			infos = compra.paraString();
+			JOptionPane.showMessageDialog(null, infos, "Mostrando todas as Compras não pagas", JOptionPane.INFORMATION_MESSAGE);
 		}
-		JOptionPane.showMessageDialog(null, infos, "Mostrando todas as Compras não pagas", JOptionPane.INFORMATION_MESSAGE);
 	}//case 7
 	public void ultimasDezCompras() {
 		String infos = "";
@@ -377,10 +331,11 @@ public void cadastraCompra(ArrayList<PessoaFisica>vecPessoaFisica, ArrayList<Pes
 		if(this.vecCompra.size()<=0) {
 			JOptionPane.showMessageDialog(null, "Não existem compras registradas", "ERRO", JOptionPane.ERROR_MESSAGE);
 		}else {
-			double compraMaisCara = this.vecCompra.get(0).getValorTotalCompra();
+			float compraMaisCara = this.vecCompra.get(0).getValorTotalCompra();
 			infos = this.getVecCompra().get(0).paraString()+"\n";
 	        for (int i=0; i<this.vecCompra.size();i++) {
 	        if(compraMaisCara<this.vecCompra.get(i).getValorTotalCompra()){ 
+	        	compraMaisCara = this.vecCompra.get(i).getValorTotalCompra();
 	        	infos = this.getVecCompra().get(i).paraString() + "\n";
 	        }
 	        }
@@ -392,12 +347,14 @@ public void cadastraCompra(ArrayList<PessoaFisica>vecPessoaFisica, ArrayList<Pes
 		if(this.vecCompra.size()<=0) {
 			JOptionPane.showMessageDialog(null, "Não existem compras registradas", "ERRO", JOptionPane.ERROR_MESSAGE);
 		}else {
-			double compraMaisBarata = this.vecCompra.get(0).getValorTotalCompra();
+			float compraMaisBarata = this.vecCompra.get(0).getValorTotalCompra();
 			infos = this.getVecCompra().get(0).paraString()+"\n";
-	        for (int i=0; i<this.vecCompra.size();i++) {
-	        if(compraMaisBarata>this.vecCompra.get(i).getValorTotalCompra()){ 
-	        	infos = this.getVecCompra().get(i).paraString() + "\n";
-	        }
+			
+	        for (int i=0; i<this.vecCompra.size();i++) {	      
+		        if(compraMaisBarata>this.vecCompra.get(i).getValorTotalCompra()){ 
+		        	compraMaisBarata = this.vecCompra.get(i).getValorTotalCompra();
+		        	infos = this.getVecCompra().get(i).paraString() + "\n";
+		        }
 	        }
 	        JOptionPane.showMessageDialog(null, infos, "Compra mais barata:", JOptionPane.INFORMATION_MESSAGE);
 		}
@@ -405,11 +362,11 @@ public void cadastraCompra(ArrayList<PessoaFisica>vecPessoaFisica, ArrayList<Pes
 	public void comprasFeitasUltimosDozeMeses(){
 		String infos = "";
 		LocalDate UltimoDiaMesAnterior, primeiroDiaMesAtual = LocalDate.now();
-		Double somaMes = 0.0;
+		float somaMes = 0;
 		
 		for(int i = 0; i < 12 ; i++){
 			infos = "";
-			somaMes = 0.0;
+			somaMes = 0;
 			UltimoDiaMesAnterior = LocalDate.now().minusMonths(i + 1).with(TemporalAdjusters.lastDayOfMonth());
 			primeiroDiaMesAtual = LocalDate.now().minusMonths(i - 1).with(TemporalAdjusters.firstDayOfMonth());
 			

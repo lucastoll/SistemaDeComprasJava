@@ -1,79 +1,57 @@
+fisica
+Lucas Tolotto
+Barcelona
+99
+Vila Hortência
+13902-233
+São Roque
+Rio de Janeiro
+564.596.310-50
+4
+
 juridica
-emerson junior
-stronger
-32
-a
-a
-a
-a
-cnpj
-oi
+Bar do Giba
+Capitão Bento Mascarenhas
+44
+Kasato Maru
+13042-244
+Sorocaba
+São Paulo
+79.285.852/0001-22
+Bar do Giba LTDA
 30
 
 fisica
-Lucas
-rua
-4
-bairro
-cep
-a
-a
-cpfzao
-44
+Tody
+Rua Sete
+23
+João Caetano 
+24866-420
+Itaboraí
+Rio de Janeiro
+240.611.650-62
+8
 
 fisica
-Rafael
-Alameda Biarritz
-151
-Piazza
-18052644
-Sorocaba
-São Paulo
-48046641812
-3
-
-fisica
-Vinicius
-Fodc
-133
-OII
-1806554
-Sao Paulo
-Sao Paulo
-4804664223
-3
+Rafael Rosário
+Kane Andó
+192
+Parque São Pedro
+87112-480
+Sarandi
+Paraná
+380.254.800-03
+6
 
 juridica
-Jorge
-a
-1
-a
-187766
-sorocaba
-sp
-4934839398
-rrtrtre
-5
-
-fisica
-Laura
-Conquista
-344
-piazza
-18052644
+Facens
+Rodovia Senador José Ermírio de Moraes
+1425
+Jardim Constantino Matucci
+18085-784
 Sorocaba
-sp
-21398071897
-4
-
-fisica
-Laplace
-rua do marcao
-9
-FODASE
-23
-cidade do laplace
-estado do laplace
-2424
-12
+São Paulo
+45.718.988/0001-67
+ASSOCIACAO CULTURAL DE RENOVACAO TECNOLOGICA SOROCABANA
+120
 

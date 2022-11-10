@@ -1,11 +1,44 @@
-Produto
-1
-Faca
-Afiada e serrilhada
-100.0
 Perecivel
-2
-Feijao
-Broto Legal
-25.0
-2022-10-01
+122
+Arroz
+Arroz Branco 5KG
+20
+2022-10-08
+
+
+Perecivel
+254
+Feijão
+Feijão Carioca 1KG
+8.39
+2023-02-09
+
+
+Produto
+695
+Faca
+Faca 10" em Aço Inoxidável e Cabo em Madeira Steel
+88
+
+Produto
+737
+Panela de pressão
+Panela de Pressão 4,5 litros Fechamento Externo Cereja - Panelux 
+195.13
+
+Perecivel
+364
+Macarrão
+Macarrão tipo espaguete N8
+4.50
+2024-12-20
+
+
+Perecivel
+425
+Mignon Surpresa
+Comida instantânea com molho bechamel
+162
+2021-07-02
+
+

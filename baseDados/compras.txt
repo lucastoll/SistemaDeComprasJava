@@ -1,42 +1,105 @@
 InicioCompra
-Lucas
-cpfzao
-1
-46.0
+Bar do Giba
+79.285.852/0001-22
+38130
+26564.39
+2022-04-04
+ItemCompra
+Mignon Surpresa
+150
+162.0
+24300.0
+ItemCompra
+Arroz 
+20
+20.0
+400.0
+ItemCompra
+Feijão
+100
+8.39
+839.6
+ItemCompra
+Faca
+5
+88.0
+440.0
+ItemCompra
+Panela de pressão
+3
+195.13
+585.39
+Total pago
+0.0
+
+InicioCompra
+Lucas Tolotto
+564.596.310-50
+72918
+9.0
+2022-09-30
+ItemCompra
+Macarrão
+2
+4.5
+9.0
+Total pago
+0.0
+
+InicioCompra
+Rafael Rosário
+380.254.800-03
+79774
+250.0
 2022-11-09
 ItemCompra
-arroz
-2
-23.0
-46.0
+Mignon Surpresa
+1
+162.0
+162.0
+ItemCompra
+Faca
+1
+88.0
+88.0
 Total pago
-0.0
+250.0
 
 InicioCompra
-Rafael
-48046641812
-2
-69.0
+Tody
+240.611.650-62
+26681
+223.52
 2022-10-09
 ItemCompra
-arroz
-3
-23.0
-69.0
+Arroz 
+1
+20.0
+20.0
+ItemCompra
+Feijão
+1
+8.39
+8.39
+ItemCompra
+Panela de pressão
+1
+195.13
+195.13
 Total pago
-0.0
+223.52
 
 InicioCompra
-Laura
-21398071897
-3
-115.0
-2021-12-09
+Facens
+45.718.988/0001-67
+70054
+880.0
+2021-12-15
 ItemCompra
-arroz
-5
-23.0
-115.0
+Faca
+10
+88.0
+880.0
 Total pago
-0.0
+880.0
 

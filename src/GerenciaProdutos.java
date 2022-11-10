@@ -171,7 +171,7 @@ public class GerenciaProdutos {
 		}
 		infos += "Produtos vencidos\n\n";
 		for(Pereciveis pereciveis: ArrayPereciveis) {
-			infos += pereciveis.paraString();
+			infos += pereciveis.paraString() + "\n";
 		}
 		
 		JOptionPane.showMessageDialog(null, infos, "Relação de todos os clientes iniciados pela sequencia de caracteres: ", JOptionPane.INFORMATION_MESSAGE);
